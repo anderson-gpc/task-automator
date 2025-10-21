@@ -20,8 +20,10 @@
   "homepage": "https://github.com/anderson-gpc/task-automator/backend#readme",
   "dependencies": {
     "@nestjs/common": "^11.1.7",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.1.7",
     "@nestjs/platform-express": "^11.1.7",
+    "dotenv": "^17.2.3",
     "node-cron": "^4.2.1"
   },
   "devDependencies": {
