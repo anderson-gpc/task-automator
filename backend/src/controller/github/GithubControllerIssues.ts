@@ -7,7 +7,7 @@ export class GithubControllerGetIssues implements IActionGet {
 
   @UseInterceptors(ConnectOctokit)
   @Get()
-  async getIssues(@Req() req: any) {
+  async get(@Req() req: any) {
     const { data } = await req.octokit.request("GET /user/issues");
     return data;
   }

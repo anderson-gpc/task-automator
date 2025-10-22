@@ -1,5 +1,5 @@
 interface IActionGet {
-  getIssues(req: any): Promise<any>;
+  get(req: any): Promise<any>;
 }
 
 export type { IActionGet };
