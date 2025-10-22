@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { ConnectOctokit } from "../utils/Octokit";
-import { GithubController } from "../controller/github/GithubController";
+import { GithubControllerGetIssues } from "../controller/github/GithubControllerIssues";
 
 @Module({
-    controllers: [GithubController],
+    controllers: [GithubControllerGetIssues],
     providers: [ConnectOctokit]
 })
 
