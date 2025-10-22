@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 import { ConnectOctokit } from "../utils/Octokit";
 import { GithubControllerGetIssues } from "../controller/github/GithubControllerIssues";
-import { GithubControllerFollowers } from "../controller/github/GithubControllerNetwork";
+import { GitHubControllerGetNetwork } from "../controller/github/GithubControllerNetwork";
 
 @Module({
-    controllers: [GithubControllerGetIssues, GithubControllerFollowers],
+    controllers: [GithubControllerGetIssues, GitHubControllerGetNetwork],
 })
 
 export class GithubModule {};
