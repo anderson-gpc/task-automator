@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
-import { User } from "../entity/user.entity";
-import type { ICrud } from "../interfaces/crud.interface";
+import { User } from "../database/entity/user.entity";
+import type { ICrud } from "../utils/interfaces/crud.interface";
 
 @Injectable()
 export class UserService implements ICrud<User> {
