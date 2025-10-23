@@ -1,12 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { User } from "../entity/user.entity";
+import { ICreate } from "../interfaces/crud.interface";
 
 @Injectable()
-export class AuthService {
+export class AuthService implements ICreate<User> {
     constructor(private userService: UserService){}
 
-    async createUser(userData: Partial<User>) {
-        await this.userService.createGithubUser(userData);
+    async create(userData: Partial<User>) {
+        await this.userService.create(userData);
     }
 }
