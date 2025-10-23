@@ -14,7 +14,7 @@ export class GithubControllerGetIssues implements IActionGet {
 }
 
 @Controller("/github/network")
-export class GitHubControllerGetNetwork implements IActionGet {
+export class GithubControllerGetNetwork implements IActionGet {
     private query: string = '';
 
     @UseInterceptors(ConnectOctokit)
