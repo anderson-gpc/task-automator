@@ -12,13 +12,15 @@ export class UserService implements ICrud<User> {
 
     async create(data: Partial<User>) {
         const existingUser = await this.verifyGithubUser(data.githubId!);
-        if (existingUser) return;
+        if (existingUser) {
+            return await this.userRepository.update(existingUser.id!, data);
+        };
         const user = this.userRepository.create({...data})
         return this.userRepository.save(user);
     }
 
     update(data: User | Partial<User>) {
-        
+
     }
 
     delete(data: User | Partial<User>) {
