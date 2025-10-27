@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { GithubRepository } from "./repositorygithub.entity";
 
 @Entity()
 export class User {
@@ -19,4 +20,7 @@ export class User {
 
     @Column({length: 255})
     photo?: string;
+
+    @OneToMany(() => GithubRepository, (repo) => repo.user)
+    repositories?: GithubRepository[];
 }
