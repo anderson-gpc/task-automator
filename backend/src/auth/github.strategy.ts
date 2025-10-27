@@ -44,7 +44,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, "github") {
       photo: photos?.[0]?.value || "",
       acessToken,
     };
-    await this.authService.create(userData as Partial<User>);
+    await this.authService.create(userData as User);
     done(null, userData);
   }
 }
