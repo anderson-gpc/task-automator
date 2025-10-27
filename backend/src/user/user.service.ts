@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "../database/entity/user.entity";
-import type { ICreate } from "../utils/interfaces/crud.interface";
+import type { ICreate } from "../shared/interfaces/crud.interface";
 import { UserDTO } from "./dto/user.dto";
 
 @Injectable()

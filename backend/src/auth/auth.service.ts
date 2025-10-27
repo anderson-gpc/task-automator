@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { UserService } from "../user/user.service";
 import { User } from "../database/entity/user.entity";
-import { ICreate } from "../utils/interfaces/crud.interface";
+import { ICreate } from "../shared/interfaces/crud.interface";
 
 @Injectable()
 export class AuthService implements ICreate<User, User> {

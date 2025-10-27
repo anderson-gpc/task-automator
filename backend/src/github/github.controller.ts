@@ -1,6 +1,6 @@
 import { Controller, Get, UseInterceptors, Req } from "@nestjs/common";
-import { ConnectOctokit } from "../utils/lib/Octokit";
-import { IActionGet } from "../utils/interfaces/actions.interface";
+import { ConnectOctokit } from "../shared/lib/Octokit";
+import { IActionGet } from "../shared/interfaces/actions.interface";
 
 @Controller("/github/issues")
 export class GithubControllerGetIssues implements IActionGet {
