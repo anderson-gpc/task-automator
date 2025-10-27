@@ -31,7 +31,6 @@ export class UserService implements ICreate<User, UserDTO> {
         user.githubId!,
         user.displayName!,
         user.username!,
-        user.acessToken!,
         user.photo!
       );
 
