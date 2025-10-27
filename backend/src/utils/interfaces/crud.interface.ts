@@ -1,11 +1,11 @@
-interface ICreate<T> {
-    create(data: T | Partial<T>): any;
+interface ICreate<T, R> {
+    create(data: Omit<T, "id">): Promise<R | void>;
 }
 
-interface ICrud<T> extends ICreate<T> {
-    update(data: T | Partial<T>): any;
-    delete(data: T | Partial<T>): any;
-    view(data: T | Partial<T>): any;
+interface ICrud<T, R> extends ICreate<T, R> {
+    update(data: Omit<T, "id"> | Partial<T>): Promise<T>;
+    delete(data: T | Partial<T>): Promise<boolean>;
+    view(data: T | Partial<T>): Promise<T | null>;
 }
 
 export type {ICreate, ICrud}

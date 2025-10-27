@@ -2,33 +2,38 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "../database/entity/user.entity";
 import type { ICreate } from "../utils/interfaces/crud.interface";
-import { UserDto } from "./dto/user.dto";
+import { UserDTO } from "./dto/user.dto";
 
 @Injectable()
-export class UserService implements ICreate<User> {
+export class UserService implements ICreate<User, UserDTO> {
   constructor(
     @Inject("USER_REPOSITORY")
     private userRepository: Repository<User>
   ) {}
 
-  async create(data: Partial<User>) {
+  async create(data: User) {
     try {
       const existingUser = await this.verifyGithubUser(data.githubId!);
 
+      let user: User;
+
       if (existingUser) {
         await this.userRepository.update(existingUser.id!, data);
+        user = await this.userRepository.findOneOrFail({
+          where: { id: existingUser.id! },
+        });
       } else {
-        const userEntity = this.userRepository.create({ ...data });
-        this.userRepository.save(userEntity);
+        user = this.userRepository.create(data);
+        await this.userRepository.save(user);
       }
 
-      const userDTO: UserDto = {
-        gitubId: existingUser!.githubId!,
-        username: existingUser!.username!,
-        photo: existingUser!.photo!,
-        displayName: existingUser!.displayName!,
-        acessToken: existingUser!.acessToken!,
-      };
+      const userDTO = new UserDTO(
+        user.githubId!,
+        user.displayName!,
+        user.username!,
+        user.acessToken!,
+        user.photo!
+      );
 
       return userDTO;
     } catch (error: any) {
