@@ -1,4 +1,4 @@
-import { Controller, Post , Body, Param, ValidationPipe, Put, Get} from "@nestjs/common";
+import { Controller, Post , Body, Param, ValidationPipe, Put, Get, Delete} from "@nestjs/common";
 import { RepositoryService } from "./repositorygithub.service";
 import { RepositoryDTO } from "./dto/repository.dto";
 
@@ -17,7 +17,12 @@ export class RepositoryController {
     }
 
     @Get("user/:userId")
-    async getAll(@Param("userId") userId: number) {
+    async getAll(@Param("userId") userId: string) {
         return this.service.getAll(userId);
+    }
+
+    @Delete("/delete/:id")
+    async delete(@Param('id') id: string) {
+        return this.service.delete(id);
     }
 }

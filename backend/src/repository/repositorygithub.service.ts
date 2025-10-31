@@ -2,6 +2,7 @@ import { Injectable, BadRequestException, Inject } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { GithubRepository } from "../database/entity/repositorygithub.entity";
 import { RepositoryDTO } from "./dto/repository.dto";
+import { DeleteResult } from "typeorm/browser";
 
 @Injectable()
 export class RepositoryService {
@@ -42,7 +43,19 @@ export class RepositoryService {
     }
   }
 
-  async getAll(userId: number): Promise<GithubRepository[]> {
-    return await this.githubRepository.find({where: {userId: userId}});
+  async getAll(userId: string): Promise<GithubRepository[]> {
+    return await this.githubRepository.find({ where: { userId: Number(userId) } });
+  }
+
+  async delete(repoId: string): Promise<DeleteResult> {
+    try {
+      const repoDelete = await this.githubRepository.delete({ id: Number(repoId) });
+      if (repoDelete.affected === 0) {
+        throw new Error();
+      }
+      return repoDelete;
+    } catch (error) {
+      throw new BadRequestException("Não foi possível deletar o repositório.");
+    }
   }
 }
