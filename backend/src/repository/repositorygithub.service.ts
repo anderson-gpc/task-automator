@@ -13,13 +13,32 @@ export class RepositoryService {
   async create(data: RepositoryDTO): Promise<RepositoryDTO> {
     try {
       const repo = this.githubRepository.create({
-        user: Number(data.idUser),
+        userId: Number(data.userId),
         url: data.url,
       });
       const repoDB = await this.githubRepository.save(repo);
-      return { url: repoDB.url, idUser: repoDB.user.toString() };
+      return { url: repoDB.url, userId: repoDB.user.toString() };
     } catch (error) {
       throw new BadRequestException("DTO inválido ou erro ao salvar");
+    }
+  }
+
+  async update(data: RepositoryDTO, id: string): Promise<String> {
+    try {
+      const repo = await this.githubRepository.findOne({
+        where: { id: Number(id) },
+      });
+      if (repo) {
+        repo.url = data.url;
+        const repoEntity = await this.githubRepository.save(repo);
+        return repoEntity.url;
+      } else {
+        throw new BadRequestException("Não foi encontrado o repositório!");
+      }
+    } catch (error) {
+      throw new BadRequestException(
+        "Não foi possível atualizar a URL do repositório"
+      );
     }
   }
 }

@@ -6,5 +6,5 @@ export class RepositoryDTO {
   url!: string;
 
   @IsNotEmpty()
-  idUser!: string;
+  userId!: string;
 }
