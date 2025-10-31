@@ -6,6 +6,8 @@ import { UserDTO } from "./dto/user.dto";
 
 @Injectable()
 export class UserService implements ICreate<User, UserDTO> {
+  private acessTemp!: string;
+
   constructor(
     @Inject("USER_REPOSITORY")
     private userRepository: Repository<User>
@@ -13,7 +15,7 @@ export class UserService implements ICreate<User, UserDTO> {
 
   async create(data: User) {
     try {
-      const existingUser = await this.verifyGithubUser(data.githubId!);
+      const existingUser = await this.getUser(data.githubId!);
 
       let user: User;
 
@@ -33,6 +35,7 @@ export class UserService implements ICreate<User, UserDTO> {
         user.username!,
         user.photo!
       );
+      this.acessTemp = user.githubId!;
 
       return userDTO;
     } catch (error: any) {
@@ -40,9 +43,13 @@ export class UserService implements ICreate<User, UserDTO> {
     }
   }
 
-  private async verifyGithubUser(githubId: string) {
+  private async getUser(githubId: string) {
     return await this.userRepository.findOne({
       where: { githubId: githubId },
     });
+  }
+
+  async getAcess() {
+    return await this.getUser(this.acessTemp);
   }
 }

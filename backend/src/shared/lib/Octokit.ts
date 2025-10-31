@@ -1,16 +1,17 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { Observable } from "rxjs";
+import { UserService } from "../../user/user.service";
 
 @Injectable()
 export class ConnectOctokit implements NestInterceptor {
 
+  constructor(private readonly userService: UserService) {}
+
   async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
-
+    const acessTemp = await this.userService.getAcess();
     const { Octokit } = await import("octokit");
-    const configService = new ConfigService();
-    const octokit = new Octokit({ auth: configService.get<string>("GITHUB_TOKEN")! });
+    const octokit = new Octokit({ auth: acessTemp?.acessToken });
 
     request.octokit = octokit;
 
