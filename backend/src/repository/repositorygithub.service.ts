@@ -41,4 +41,8 @@ export class RepositoryService {
       );
     }
   }
+
+  async getAll(userId: number): Promise<GithubRepository[]> {
+    return await this.githubRepository.find({where: {userId: userId}});
+  }
 }
