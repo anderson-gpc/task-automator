@@ -13,7 +13,6 @@ export class AuthController {
     @Get("github/callback")
     @UseGuards(AuthGuard("github"))
     githubCallback(@Req() req: any) {
-        const {acessToken, ...safeRes} = req.user
-        return safeRes;
+        return req.user;
     }
 }

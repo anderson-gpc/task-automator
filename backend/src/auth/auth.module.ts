@@ -1,14 +1,29 @@
 import { Module } from "@nestjs/common";
 import { AuthController } from "./auth.controller";
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { UserModule } from "../user/user.module";
 import { GithubStrategy } from "./github.strategy";
 import { AuthService } from "./auth.service";
+import { JwtModule } from "@nestjs/jwt";
 
 @Module({
-    imports: [ConfigModule.forRoot(), UserModule],
-    controllers: [AuthController],
-    providers: [GithubStrategy, AuthService],
-})
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    UserModule,
 
-export class AuthModule {};
+    JwtModule.registerAsync({
+      global: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>("JWT_SECRET"),
+        signOptions: {
+          expiresIn: configService.get<string>("JWT_EXPIRE_IN") || "60s",
+        },
+      }),
+    }),
+  ],
+  controllers: [AuthController],
+  providers: [GithubStrategy, AuthService],
+})
+export class AuthModule {}
