@@ -9,9 +9,17 @@ export class ConnectOctokit implements NestInterceptor {
 
   async intercept(context: ExecutionContext, next: CallHandler<any>): Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
-    const acessTemp = await this.userService.getAcess();
+    let acessToken: string = "";
+    const { type } = request.headers;
+
+    if (type === "refine") {
+      acessToken = await this.userService.getRefinedAcessToken(request.user.refinedAcessToken);
+    } else {
+      acessToken = await this.userService.getAcessToken(request.user.githubId);
+    }
+
     const { Octokit } = await import("octokit");
-    const octokit = new Octokit({ auth: acessTemp?.acessToken });
+    const octokit = new Octokit({ auth: acessToken });
 
     request.octokit = octokit;
 
