@@ -3,14 +3,16 @@ import { Repository } from "typeorm";
 import { User } from "../database/entity/user.entity";
 import type { ICreate } from "../shared/interfaces/crud.interface";
 import { UserDTO } from "./dto/user.dto";
-import { EncryptToken } from "../decorators/encrypt.decorator";
-import { DecryptToken } from "../decorators/decrypt.decorator";
+import { EncryptionService } from "../utils/encryption.service";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class UserService implements ICreate<User, UserDTO> {
   constructor(
     @Inject("USER_REPOSITORY")
-    private userRepository: Repository<User>
+    private userRepository: Repository<User>,
+    private readonly security: EncryptionService,
+    private readonly configService: ConfigService
   ) {}
 
   async create(data: User) {
@@ -49,18 +51,27 @@ export class UserService implements ICreate<User, UserDTO> {
     const acessToken = await this.getUser(githubId);
     return acessToken?.acessToken ?? "";
   }
-  
+
   async getRefinedAcessToken(githubId: string): Promise<string> {
     const refinedAcessToken = await this.getUser(githubId);
+    if (refinedAcessToken?.refinedAcessToken) {
+      return await this.security.descrypt(
+        refinedAcessToken.refinedAcessToken,
+        this.configService.get<string>("ENCRIPT_KEY")!
+      );
+    }
     return refinedAcessToken?.refinedAcessToken ?? "";
   }
 
-  @EncryptToken()
   async addRefinedAcessToken(token: string, githubId: string) {
     try {
+      const tokenEncrypted = await this.security.encrypt(
+        token,
+        this.configService.get<string>("ENCRIPT_KEY")!
+      );
       await this.userRepository.update(
         { githubId: githubId },
-        { refinedAcessToken: token }
+        { refinedAcessToken: tokenEncrypted }
       );
     } catch (error) {
       throw new Error("Erro ao salvar");
