@@ -5,6 +5,7 @@ import { UserModule } from "../user/user.module";
 import { GithubStrategy } from "./github.strategy";
 import { AuthService } from "./auth.service";
 import { JwtModule } from "@nestjs/jwt";
+import { JWTGuard } from "./auth.guard";
 
 @Module({
   imports: [
@@ -18,12 +19,12 @@ import { JwtModule } from "@nestjs/jwt";
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>("JWT_SECRET"),
         signOptions: {
-          expiresIn: configService.get<string>("JWT_EXPIRE_IN") || "60s",
+          expiresIn: configService.get<string>("JWT_EXPIRES_IN") || "60s",
         },
       }),
     }),
   ],
   controllers: [AuthController],
-  providers: [GithubStrategy, AuthService],
+  providers: [GithubStrategy, AuthService, JWTGuard],
 })
 export class AuthModule {}
