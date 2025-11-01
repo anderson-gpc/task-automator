@@ -1,6 +1,5 @@
 import { createCipheriv, randomBytes, scrypt } from "crypto";
 import { promisify } from "util";
-import { Script } from "vm";
 
 export function EncryptToken() {
   return function (
@@ -22,7 +21,7 @@ export function EncryptToken() {
 
         args[0] = encryptToken.toString('base64');
         const result = await originalMethod.apply(this, args);
-        
+
         return result
 
     }
