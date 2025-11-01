@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 import { Observable } from "rxjs";
-import { UserService } from "../../user/user.service";
+import { UserService } from "../user/user.service";
 
 @Injectable()
 export class ConnectOctokit implements NestInterceptor {

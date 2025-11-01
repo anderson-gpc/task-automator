@@ -1,5 +1,5 @@
 import { Controller, Get, UseInterceptors, Req, UseGuards } from "@nestjs/common";
-import { ConnectOctokit } from "../shared/lib/Octokit";
+import { ConnectOctokit } from "../utils/connect-octokit";
 import { IActionGet } from "../shared/interfaces/actions.interface";
 import { JWTGuard } from "../auth/auth.guard";
 
