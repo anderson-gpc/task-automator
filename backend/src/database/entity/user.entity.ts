@@ -19,6 +19,9 @@ export class User {
   @Column({ length: 255, nullable: true })
   acessToken?: string;
 
+  @Column({length: 255, nullable: true})
+  refinedAcessToken?: string;
+
   @Column({ length: 255, nullable: true })
   photo?: string;
 
