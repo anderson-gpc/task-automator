@@ -18,10 +18,9 @@ export class UserService implements ICreate<User, UserDTO> {
       const existingUser = await this.getUser(data.githubId!);
 
       if (existingUser) {
-  const { id, githubId, ...partial } = data;
-  console.log("Atualizando usuário:", { criteria: { githubId }, partial });
-  await this.userRepository.update({ githubId }, partial);
-} else {
+        const { id, githubId, ...partial } = data;
+        await this.userRepository.update({ githubId }, partial);
+      } else {
         const createUser = this.userRepository.create(data);
         await this.userRepository.save(createUser);
       }
