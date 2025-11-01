@@ -13,4 +13,11 @@ export class UserController {
         const { token } = data;
         await this.service.addRefinedAcessToken(token, githubId)
     }
+
+    @UseGuards(JWTGuard)
+    @Delete("/refinedAcessToken")
+    async deleteRefinedAcessToken(@Req() req: Request) {
+        const githubId = (req as any).user.githubid;
+        await this.service.delete(githubId);
+    }
 }

@@ -77,4 +77,13 @@ export class UserService implements ICreate<User, UserDTO> {
       throw new Error("Erro ao salvar");
     }
   }
+
+  async delete(githubId: string): Promise<boolean> {
+    try {
+      await this.userRepository.update({githubId}, {refinedAcessToken: ""})
+      return true;
+    } catch (error) {
+      throw new Error("Erro ao deletar seu token");
+    }
+  }
 }
