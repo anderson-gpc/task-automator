@@ -3,11 +3,11 @@ import { Repository } from "typeorm";
 import { User } from "../database/entity/user.entity";
 import type { ICreate } from "../shared/interfaces/crud.interface";
 import { UserDTO } from "./dto/user.dto";
+import { EncryptToken } from "../decorators/encrypt.decorator";
+import { DecryptToken } from "../decorators/decrypt.decorator";
 
 @Injectable()
 export class UserService implements ICreate<User, UserDTO> {
-  private acessTemp!: string;
-
   constructor(
     @Inject("USER_REPOSITORY")
     private userRepository: Repository<User>
@@ -33,8 +33,6 @@ export class UserService implements ICreate<User, UserDTO> {
         user!.username!,
         user!.photo!
       );
-      this.acessTemp = user!.githubId!;
-
       return userDTO;
     } catch (error: any) {
       throw new Error("Erro ao criar ou atualizar o acesso do usuário");
@@ -47,7 +45,25 @@ export class UserService implements ICreate<User, UserDTO> {
     });
   }
 
-  async getAcess() {
-    return await this.getUser(this.acessTemp);
+  async getAcessToken(githubId: string): Promise<string> {
+    const acessToken = await this.getUser(githubId);
+    return acessToken?.acessToken ?? "";
+  }
+  
+  async getRefinedAcessToken(githubId: string): Promise<string> {
+    const refinedAcessToken = await this.getUser(githubId);
+    return refinedAcessToken?.refinedAcessToken ?? "";
+  }
+
+  @EncryptToken()
+  async addRefinedAcessToken(token: string, githubId: string) {
+    try {
+      await this.userRepository.update(
+        { githubId: githubId },
+        { refinedAcessToken: token }
+      );
+    } catch (error) {
+      throw new Error("Erro ao salvar");
+    }
   }
 }
