@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
 import { GithubModule } from "./src/github/github.module";
 import { AuthModule } from "./src/auth/auth.module";
 import { RepositoryModule } from "./src/repository/repositorygithub.module";
 import { UserModule } from "./src/user/user.module";
+import { ConfigGlobalModule } from "./src/config/config.module";
 
 @Module({
-    imports: [ConfigModule.forRoot(), GithubModule, AuthModule, RepositoryModule, UserModule],
+    imports: [GithubModule, AuthModule, RepositoryModule, UserModule, ConfigGlobalModule],
 })
 
 export class AppModule {};
