@@ -17,25 +17,24 @@ export class UserService implements ICreate<User, UserDTO> {
     try {
       const existingUser = await this.getUser(data.githubId!);
 
-      let user: User;
-
       if (existingUser) {
-        await this.userRepository.update(existingUser.id!, data);
-        user = await this.userRepository.findOneOrFail({
-          where: { id: existingUser.id! },
-        });
-      } else {
-        user = this.userRepository.create(data);
-        await this.userRepository.save(user);
+  const { id, githubId, ...partial } = data;
+  console.log("Atualizando usuário:", { criteria: { githubId }, partial });
+  await this.userRepository.update({ githubId }, partial);
+} else {
+        const createUser = this.userRepository.create(data);
+        await this.userRepository.save(createUser);
       }
 
+      const user = await this.getUser(data.githubId);
+
       const userDTO = new UserDTO(
-        user.githubId!,
-        user.displayName!,
-        user.username!,
-        user.photo!
+        user!.githubId!,
+        user!.displayName!,
+        user!.username!,
+        user!.photo!
       );
-      this.acessTemp = user.githubId!;
+      this.acessTemp = user!.githubId!;
 
       return userDTO;
     } catch (error: any) {
