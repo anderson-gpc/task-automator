@@ -14,11 +14,11 @@ export class RepositoryService {
   async create(data: RepositoryDTO): Promise<RepositoryDTO> {
     try {
       const repo = this.githubRepository.create({
-        userId: Number(data.userId),
+        githubId: data.githubId,
         url: data.url,
       });
       const repoDB = await this.githubRepository.save(repo);
-      return { url: repoDB.url, userId: repoDB.user.toString() };
+      return { url: repoDB.url, githubId: repoDB.user.toString() };
     } catch (error) {
       throw new BadRequestException("DTO inválido ou erro ao salvar");
     }
@@ -43,8 +43,8 @@ export class RepositoryService {
     }
   }
 
-  async getAll(userId: string): Promise<GithubRepository[]> {
-    return await this.githubRepository.find({ where: { userId: Number(userId) } });
+  async getAll(githubid: string): Promise<GithubRepository[]> {
+    return await this.githubRepository.find({ where: { githubId: githubid } });
   }
 
   async delete(repoId: string): Promise<DeleteResult> {

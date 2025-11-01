@@ -6,13 +6,16 @@ export class GithubRepository {
   @PrimaryGeneratedColumn()
   id?: number;
 
+  @Column({ length: 20 })
+  githubId!: string;
+
   @ManyToOne(() => User, (user) => user.repositories, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "userId" })
+  @JoinColumn({ name: "githubId", referencedColumnName: "githubId" }) 
   user!: User;
 
-  @Column()
-  userId!: number;
+  @Column({ length: 50 })
+  githubRepoId!: string;
 
-  @Column()
+  @Column({ length: 255 })
   url!: string;
 }

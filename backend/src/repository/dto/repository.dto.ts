@@ -6,5 +6,5 @@ export class RepositoryDTO {
   url!: string;
 
   @IsNotEmpty()
-  userId!: string;
+  githubId!: string;
 }

@@ -1,10 +1,12 @@
-import { Controller, Get, UseInterceptors, Req } from "@nestjs/common";
+import { Controller, Get, UseInterceptors, Req, UseGuards } from "@nestjs/common";
 import { ConnectOctokit } from "../shared/lib/Octokit";
 import { IActionGet } from "../shared/interfaces/actions.interface";
+import { JWTGuard } from "../auth/auth.guard";
 
 @Controller("/github/issues")
 export class GithubControllerGetIssues implements IActionGet {
 
+  @UseGuards(JWTGuard)
   @UseInterceptors(ConnectOctokit)
   @Get()
   async get(@Req() req: any) {
@@ -13,13 +15,14 @@ export class GithubControllerGetIssues implements IActionGet {
   }
 }
 
-@Controller("/github/network")
+@Controller("/github/network") // Implements Acess Refine Token 
 export class GithubControllerGetNetwork implements IActionGet {
     private query: string = '';
 
+    @UseGuards(JWTGuard)
     @UseInterceptors(ConnectOctokit)
     @Get()
-    public async  get(@Req() req: any ) {
+    public async get(@Req() req: any ) {
         this.query = req.originalUrl.split('?')[1];
         const { data } = await req.octokit.request(`GET /user/${this.query}`)
         return data;
