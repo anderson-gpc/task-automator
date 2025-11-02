@@ -41,4 +41,14 @@ export class GithubController {
     const friends = this.service.getFriends(followers.data, following.data);
     return friends;
   }
+
+  @UseGuards(JWTGuard)
+  @UseInterceptors(ConnectOctokit)
+  @Get("/notFollowers")
+  public async getNotFollowers(@Req() req: any) {
+    const following = await req.octokit.request(`GET /user/following`);
+    const followers = await req.octokit.request(`GET /user/followers`);
+    const notFollowers = this.service.getNotFollowers(followers.data, following.data);
+    return notFollowers
+  }
 }
