@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import { GithubControllerGetIssues, GithubControllerGetNetwork } from "./github.controller";
+import { GithubController } from "./github.controller";
 
 @Module({
-    controllers: [GithubControllerGetIssues, GithubControllerGetNetwork],
+    controllers: [GithubController],
 })
 
 export class GithubModule {};
