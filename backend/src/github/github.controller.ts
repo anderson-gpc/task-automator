@@ -7,10 +7,13 @@ import {
 } from "@nestjs/common";
 import { ConnectOctokit } from "../utils/connect-octokit";
 import { JWTGuard } from "../auth/auth.guard";
+import { GithubService } from "./github.service";
 
 @Controller("/github")
 export class GithubController {
   private query: string = "";
+
+  constructor(private readonly service: GithubService) {}
 
   @UseGuards(JWTGuard)
   @UseInterceptors(ConnectOctokit)
@@ -27,5 +30,15 @@ export class GithubController {
     this.query = req.originalUrl.split("?")[1];
     const { data } = await req.octokit.request(`GET /user/${this.query}`);
     return data;
+  }
+
+  @UseGuards(JWTGuard)
+  @UseInterceptors(ConnectOctokit)
+  @Get("/friends")
+  public async getFriends(@Req() req: any) {
+    const following = await req.octokit.request(`GET /user/following`);
+    const followers = await req.octokit.request(`GET /user/followers`);
+    const friends = this.service.getFriends(followers.data, following.data);
+    return friends;
   }
 }
