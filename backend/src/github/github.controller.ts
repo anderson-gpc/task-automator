@@ -4,6 +4,8 @@ import {
   UseInterceptors,
   Req,
   UseGuards,
+  Delete,
+  Query
 } from "@nestjs/common";
 import { ConnectOctokit } from "../utils/connect-octokit";
 import { JWTGuard } from "../auth/auth.guard";
@@ -50,5 +52,12 @@ export class GithubController {
     const followers = await req.octokit.request(`GET /user/followers`);
     const notFollowers = this.service.getNotFollowers(followers.data, following.data);
     return notFollowers
+  }
+
+  @UseGuards(JWTGuard)
+  @UseInterceptors(ConnectOctokit)
+  @Delete("/following")
+  public async deleterFollowing(@Query("username") username: string, @Req() req: any) {
+    return await req.octokit.request(`DELETE /user/following/${username}`);
   }
 }
