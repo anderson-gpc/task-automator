@@ -5,7 +5,8 @@ import {
   Req,
   UseGuards,
   Delete,
-  Query
+  Query,
+  Param
 } from "@nestjs/common";
 import { ConnectOctokit } from "../utils/connect-octokit";
 import { JWTGuard } from "../auth/auth.guard";
@@ -13,8 +14,6 @@ import { GithubService } from "./github.service";
 
 @Controller("/github")
 export class GithubController {
-  private query: string = "";
-
   constructor(private readonly service: GithubService) {}
 
   @UseGuards(JWTGuard)
@@ -27,10 +26,9 @@ export class GithubController {
 
   @UseGuards(JWTGuard)
   @UseInterceptors(ConnectOctokit)
-  @Get("/network")
-  public async viewNetwork(@Req() req: any) {
-    this.query = req.originalUrl.split("?")[1];
-    const { data } = await req.octokit.request(`GET /user/${this.query}`);
+  @Get("/network/:group")
+  public async viewNetwork(@Param("group") group: string, @Req() req: any) {
+    const { data } = await req.octokit.request(`GET /user/${group}`);
     return data;
   }
 
