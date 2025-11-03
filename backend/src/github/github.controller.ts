@@ -28,7 +28,7 @@ export class GithubController {
   @UseInterceptors(ConnectOctokit)
   @Get("/network/:group")
   public async viewNetwork(@Param("group") group: string, @Req() req: any) {
-    const { data } = await req.octokit.request(`GET /user/${group}`);
+    const { data } = await req.octokit.request(`GET /users/${req.user.userName}/${group}`);
     return data;
   }
 
