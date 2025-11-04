@@ -18,6 +18,6 @@ export class UserController {
     @Delete("/refinedAcessToken")
     async deleteRefinedAcessToken(@Req() req: Request) {
         const githubId = (req as any).user.githubid;
-        await this.service.delete(githubId);
+        await this.service.deleteRefinedAcessToken(githubId);
     }
 }

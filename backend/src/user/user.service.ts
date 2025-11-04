@@ -15,7 +15,7 @@ export class UserService implements ICreate<User, UserDTO> {
     private readonly configService: ConfigService
   ) {}
 
-  async create(data: User) {
+  async createUser(data: User) {
     try {
       const existingUser = await this.getUser(data.githubId!);
 
@@ -78,7 +78,7 @@ export class UserService implements ICreate<User, UserDTO> {
     }
   }
 
-  async delete(githubId: string): Promise<boolean> {
+  async deleteRefinedAcessToken(githubId: string): Promise<boolean> {
     try {
       await this.userRepository.update({githubId}, {refinedAcessToken: ""})
       return true;

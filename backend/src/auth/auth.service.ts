@@ -11,8 +11,8 @@ export class AuthService implements ICreate<User, User> {
     private jwtService: JwtService
   ) {}
 
-  async create(userData: User) {
-    const user = await this.userService.create(userData);
+  async createUser(userData: User) {
+    const user = await this.userService.createUser(userData);
     const payload = {
       userName: user.username,
       displayname: user.displayName,

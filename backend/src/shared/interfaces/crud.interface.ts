@@ -1,5 +1,5 @@
 interface ICreate<T, R> {
-    create(data: Omit<T, "id">): Promise<R | any>;
+    createUser(data: Omit<T, "id">): Promise<R | any>;
 }
 
 interface ICrud<T, R> extends ICreate<T, R> {

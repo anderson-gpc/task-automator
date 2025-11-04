@@ -44,7 +44,7 @@ export class GithubStrategy extends PassportStrategy(Strategy, "github") {
       photo: photos?.[0]?.value || "",
       acessToken,
     };
-    const payload = await this.authService.create(userData as User);
+    const payload = await this.authService.createUser(userData as User);
     done(null, payload);
   }
 }
