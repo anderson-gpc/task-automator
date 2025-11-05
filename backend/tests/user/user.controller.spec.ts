@@ -32,4 +32,11 @@ describe("UserController", () => {
     expect(service.addRefinedAcessToken).toHaveBeenCalledTimes(1);
     expect(service.addRefinedAcessToken).toHaveBeenCalledWith(body.token ,req.user.githubid)
   });
+
+  it("verificar se está removendo o token", async () => {
+    const req = {user: {githubid: 'user-123'}} as any;
+    await controller.deleteRefinedAcessToken(req);
+    expect(service.deleteRefinedAcessToken).toHaveBeenCalledTimes(1);
+    expect(service.deleteRefinedAcessToken).toHaveBeenCalledWith(req.user.githubid);
+  })
 });
