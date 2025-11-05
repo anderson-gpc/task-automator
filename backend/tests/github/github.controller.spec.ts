@@ -1,8 +1,8 @@
 import { Test } from "@nestjs/testing";
-import { GithubController } from "../../src/github/github.controller";
-import { GithubService } from "../../src/github/github.service";
-import { JWTGuard } from "../../src/auth/auth.guard";
-import { ConnectOctokit } from "../../src/utils/connect-octokit";
+import { GithubController } from "@/github/github.controller";
+import { GithubService } from "@/github/github.service";
+import { JWTGuard } from "@/auth/auth.guard";
+import { ConnectOctokit } from "@/utils/connect-octokit";
 import { CallHandler } from "@nestjs/common";
 
 describe("GithubController", () => {

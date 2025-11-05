@@ -1,4 +1,4 @@
-import { GithubService } from "../../src/github/github.service";
+import { GithubService } from "@/github/github.service";
 
 describe("GithubService", () => {
   let service: GithubService;
