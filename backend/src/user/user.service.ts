@@ -17,26 +17,21 @@ export class UserService implements ICreate<User, UserDTO> {
 
   async createUser(data: User) {
     try {
+      let userDto: InstanceType<typeof UserDTO>;
       const existingUser = await this.getUser(data.githubId!);
 
       if (existingUser) {
         const { id, githubId, ...partial } = data;
         await this.userRepository.update({ githubId }, partial);
+        userDto = existingUser as UserDTO;
       } else {
         const createUser = this.userRepository.create(data);
         await this.userRepository.save(createUser);
+        userDto = data as UserDTO;
       }
-
-      const user = await this.getUser(data.githubId);
-
-      const userDTO = new UserDTO(
-        user!.githubId!,
-        user!.displayName!,
-        user!.username!,
-        user!.photo!
-      );
-      return userDTO;
+      return userDto;
     } catch (error: any) {
+      console.log(error);
       throw new Error("Erro ao criar ou atualizar o acesso do usuário");
     }
   }
@@ -80,7 +75,7 @@ export class UserService implements ICreate<User, UserDTO> {
 
   async deleteRefinedAcessToken(githubId: string): Promise<boolean> {
     try {
-      await this.userRepository.update({githubId}, {refinedAcessToken: ""})
+      await this.userRepository.update({ githubId }, { refinedAcessToken: "" });
       return true;
     } catch (error) {
       throw new Error("Erro ao deletar seu token");
