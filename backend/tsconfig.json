@@ -11,7 +11,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"] },
+    "paths": { "@/*": ["./src/*"], "@tests/*": ["./tests/*"] },
 
     "strict": true,
     "jsx": "react-jsx",
