@@ -18,6 +18,7 @@ export class AuthService implements ICreate<User, User> {
       displayname: user.displayName,
       githubid: user.githubId,
       photo: user.photo,
+      acessToken: user.acessToken,
     };
     const token = await this.jwtService.signAsync(payload);     
     return token;
