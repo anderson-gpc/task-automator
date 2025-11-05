@@ -48,7 +48,7 @@ describe("UserService", () => {
       displayName: "Fulano",
       username: "fulano",
       photo: "url",
-      acessToken: "presentAcessToken"
+      acessToken: "presentAcessToken",
     };
 
     userRepoMock.findOne.mockResolvedValueOnce(existingUser);
@@ -68,5 +68,27 @@ describe("UserService", () => {
       { githubId: "12345" },
       expect.objectContaining({ acessToken: "newAcessToken" })
     );
+  });
+
+  it("criar usuário", async () => {
+    const input = {
+      githubId: "12345",
+      displayName: "Fulano",
+      username: "fulano",
+      photo: "url",
+      acessToken: "newAcessToken",
+    } as User;
+
+    const result = await service.createUser(input);
+
+    expect(userRepoMock.create).toHaveBeenCalledTimes(1);
+    expect(userRepoMock.create).toHaveBeenCalledWith(input);
+    expect(result).toEqual({
+      githubId: "12345",
+      displayName: "Fulano",
+      username: "fulano",
+      photo: "url",
+      acessToken: "newAcessToken",
+    });
   });
 });
