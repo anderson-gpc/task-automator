@@ -16,7 +16,8 @@ export class JWTGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const token = this.extractToken(request);
+    console.log(token);
     if (!token) throw new UnauthorizedException("Acesso não autorizado");
 
     try {
@@ -30,9 +31,17 @@ export class JWTGuard implements CanActivate {
     return true;
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
-    const authorization = (request as any).headers.authorization;
-    const [type, token] = authorization?.split(" ") ?? [];
-    return type === "Bearer" ? token : undefined;
+  private extractToken(request: any): string | undefined {
+    const authorization = request.headers.authorization;
+    if (authorization) {
+      const [type, token] = authorization.split(" ");
+      if (type === "Bearer") return token;
+    }
+
+    if (request.cookies?.access_token) {
+      return request.cookies.access_token;
+    }
+
+    return undefined;
   }
 }
