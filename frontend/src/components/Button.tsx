@@ -36,12 +36,16 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
   `,
 }));
 
-export default function ButtonComponent() {
+interface ButtonComponentProps {
+  onClick: () => void;
+}
+
+export default function ButtonComponent({onClick}: ButtonComponentProps) {
   const { styles } = useStyle();
   return (
     <ConfigProvider button={{ className: styles.linearGradientButton }}>
       <Space>
-        <Button type="primary" size="large" icon={<GithubOutlined />}>
+        <Button onClick={onClick} type="primary" size="large" icon={<GithubOutlined />}>
           Login com Github
         </Button>
       </Space>
