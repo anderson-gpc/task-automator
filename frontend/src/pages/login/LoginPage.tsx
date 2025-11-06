@@ -1,10 +1,10 @@
 "use client";
 
 import { Flex } from "antd";
-import DividerComponent from "@/src/components/Divider";
-import ButtonComponent from "@/src/components/Button";
-import { loginStyles } from "@/src/assets/css/__login.styles";
-import auth from "@/src/app/actions/auth";
+import DividerComponent from "@/components/Divider";
+import ButtonComponent from "@/components/Button";
+import { loginStyles } from "@/assets/css/__login.styles";
+import auth from "@/actions/auth";
 
 export default function LoginPage() {
   async function handleClick() {

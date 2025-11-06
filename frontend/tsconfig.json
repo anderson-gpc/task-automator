@@ -26,7 +26,10 @@
       "@/src/*": [
         "./src/*"
       ],
-      "@/components/*": ["./src/components/*"]
+      "@/components/*": ["./src/components/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/actions/*": ["./src/app/actions/*"],
+      "@/pages/*": ["./src/pages/*"]
     }
   },
   "include": [
