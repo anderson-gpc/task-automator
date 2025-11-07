@@ -4,13 +4,12 @@ import { Flex } from "antd";
 import DividerComponent from "@/components/Divider";
 import ButtonComponent from "@/components/Button";
 import { loginStyles } from "@/assets/css/__login.styles";
-import auth from "@/actions/auth";
+import auth from "@/src/app/actions/auth";
 
 export default function LoginPage() {
   async function handleClick() {
-    const result = await auth();
-    if (result) console.log("ok");
-    else console.log("too bad");
+    const url = await auth();
+    window.location.href = url;
   }
 
   return (
