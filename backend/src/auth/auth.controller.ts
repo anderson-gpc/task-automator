@@ -22,7 +22,7 @@ export class AuthController {
       maxAge: 1000 * 60 * 15,
     });
 
-    return res.status(200).json({ message: "Autentificado!" });
+    return res.redirect("http://localhost:3000/dashboard")
   }
 
   @Post("logout")
