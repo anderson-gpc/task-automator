@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const redirectUrl = "http://localhost:3001/auth/github";
+  const redirectUrl = `${process.env.API_URL}/auth/github`;
   return NextResponse.redirect(redirectUrl);
 }
+  
