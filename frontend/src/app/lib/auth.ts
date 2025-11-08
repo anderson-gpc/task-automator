@@ -5,7 +5,7 @@ const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function isAuthenticated(request: Request): Promise<boolean> {
     const cookie = request.headers.get("cookie");
-    const match = cookie?.match(/acess_token=([^;]+)/)
+    const match = cookie?.match(/access_token=([^;]+)/)
     if (!match) return false;
 
     try {

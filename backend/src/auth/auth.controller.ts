@@ -14,7 +14,7 @@ export class AuthController {
   githubCallback(@Req() req: any, @Res() res: any) {
     const token = req.user;
 
-    res.cookie("acess_token", token, {
+    res.cookie("access_token", token, {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
