@@ -6,9 +6,12 @@ import ButtonComponent, { ButtonStyleType } from "./Button";
 import useStyleDrawer from "@/assets/css/__drawer.style";
 import { LoginOutlined } from "@ant-design/icons";
 import { GithubOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 export default function DrawerComponent() {
   const [open, setOpen] = useState(false);
+  const { styles } = useStyleDrawer();
+  const router = useRouter();
 
   const showDrawer = () => {
     setOpen(true);
@@ -18,7 +21,10 @@ export default function DrawerComponent() {
     setOpen(false);
   };
 
-  const { styles } = useStyleDrawer();
+  async function handleClick() {
+    await fetch("/api/logout", {method: "POST"});
+    router.push("/login");
+  }
 
   return (
     <>
@@ -44,7 +50,7 @@ export default function DrawerComponent() {
         <ButtonComponent
           icon=<LoginOutlined />
           stylesButton={ButtonStyleType.Logout}
-          onClick={() => {}}
+          onClick={handleClick}
           text="Logout"
         />
       </Drawer>
