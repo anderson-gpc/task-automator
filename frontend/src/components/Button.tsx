@@ -1,52 +1,38 @@
 "use client";
-import { GithubOutlined } from "@ant-design/icons";
+
 import { ConfigProvider, Space, Button } from "antd";
-import { createStyles } from "antd-style";
+import useStyleButton from "../assets/css/__button.style";
 
-const useStyle = createStyles(({ prefixCls, css }) => ({
-  linearGradientButton: css`
-    &.${prefixCls}-btn-primary:not([disabled]):not(.${prefixCls}-btn-dangerous) {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, #6253e1, #000);
-      border: none;
-      color: #fff;
-
-      > span {
-        position: relative;
-        z-index: 1;
-        font-size: 1rem;
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, #000, #6253e1);
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-        z-index: 0;
-        border-radius: inherit;
-      }
-
-      &:hover::before {
-        opacity: 1;
-      }
-    }
-  `,
-}));
-
-interface ButtonComponentProps {
-  text: string,
-  onClick: () => void;
+export enum ButtonStyleType {
+  Gradient = "gradient",
+  Logout = "logout",
 }
 
-export default function ButtonComponent({text, onClick}: ButtonComponentProps) {
-  const { styles } = useStyle();
+interface ButtonComponentProps {
+  text: string;
+  onClick: () => void;
+  stylesButton: ButtonStyleType;
+  icon: React.ReactNode;
+}
+
+export default function ButtonComponent({
+  text,
+  onClick,
+  stylesButton,
+  icon,
+}: ButtonComponentProps) {
+  const { styles } = useStyleButton();
+
+  const styleMap = {
+    [ButtonStyleType.Gradient]: styles.linearGradientButton,
+    [ButtonStyleType.Logout]: styles.logout,
+  };
+  const styleApply = styleMap[stylesButton];
+
   return (
-    <ConfigProvider button={{ className: styles.linearGradientButton }}>
+    <ConfigProvider button={{ className: styleApply }}>
       <Space>
-        <Button onClick={onClick} type="primary" size="large" icon={<GithubOutlined />}>
+        <Button onClick={onClick} type="primary" size="large" icon={icon}>
           {text}
         </Button>
       </Space>

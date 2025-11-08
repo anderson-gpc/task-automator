@@ -2,8 +2,10 @@
 
 import { Drawer } from "antd";
 import { useState } from "react";
-import ButtonComponent from "./Button";
+import ButtonComponent, { ButtonStyleType } from "./Button";
 import useStyleDrawer from "@/assets/css/__drawer.style";
+import { LoginOutlined } from "@ant-design/icons";
+import { GithubOutlined } from "@ant-design/icons";
 
 export default function DrawerComponent() {
   const [open, setOpen] = useState(false);
@@ -20,9 +22,14 @@ export default function DrawerComponent() {
 
   return (
     <>
-      <ButtonComponent text="Abrir menu" onClick={showDrawer} />
+      <ButtonComponent
+        icon=<GithubOutlined />
+        stylesButton={ButtonStyleType.Gradient}
+        text="Abrir menu"
+        onClick={showDrawer}
+      />
       <Drawer
-        className={styles.customDrawer  }
+        className={styles.customDrawer}
         placement="left"
         title="Menu"
         closable={{ "aria-label": "Close Button" }}
@@ -34,7 +41,12 @@ export default function DrawerComponent() {
         <p>Seguidores</p>
         <p>Amigos</p>
         <p>Repositórios</p>
-        <p>Logout</p>
+        <ButtonComponent
+          icon=<LoginOutlined />
+          stylesButton={ButtonStyleType.Logout}
+          onClick={() => {}}
+          text="Logout"
+        />
       </Drawer>
     </>
   );
