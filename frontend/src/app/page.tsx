@@ -1,5 +1,8 @@
-import { Button } from "antd";
+"use client"
+
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return <Button>Olá, mundo!</Button>;
+  const router = useRouter();
+  return router.push("/login");
 }
