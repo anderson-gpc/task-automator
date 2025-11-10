@@ -11,9 +11,13 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const router = useRouter();
   async function handleClick() {
-    if(await login()) {
-      router.push("/dashboard");
+
+    const user = await login();
+    if(user) {
+      const userString = encodeURIComponent(JSON.stringify(user));
+      router.push(`/dashboard?user=${userString}`);
     }
+  
   }
   const { containerStyle, overlayStyle, boxStyle } = useLoginStyles();
 

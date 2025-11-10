@@ -16,13 +16,12 @@ export default async function login(): Promise<any> {
       .setExpirationTime("15min")
       .sign(SECRET);
     (await cookies()).set("access_token", jwt, { httpOnly: true, path: "/" });
-    new UserDTO({
+    return {
       login: data.login,
       avatar_url: data.avatar_url,
       url: data.html_url,
       name: data.name!,
-    });
-    return true;
+    };
   } catch (error) {
     throw new Error("Erro ao fazer login");
   }
