@@ -8,7 +8,7 @@ const useStyleDrawer = createStyles(({ prefixCls, css }) => ({
     }
 
     .${prefixCls}-drawer-header {
-      background: linear-gradient(135deg, #6253e1, #000);
+      background: #2f2890;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       color: #fff;
 
@@ -27,11 +27,17 @@ const useStyleDrawer = createStyles(({ prefixCls, css }) => ({
       }
     }
 
+    .${prefixCls}-space-item {
+      width: 100%;
+    }
+
     .${prefixCls}-drawer-body {
       padding: 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
+      width: 100%;
+      margin: 0;
 
       p {
         margin: 0;
