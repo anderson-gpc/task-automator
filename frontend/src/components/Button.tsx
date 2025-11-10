@@ -6,6 +6,7 @@ import useStyleButton from "../assets/css/__button.style";
 export enum ButtonStyleType {
   Gradient = "gradient",
   Logout = "logout",
+  Primary = "primary",
 }
 
 interface ButtonComponentProps {
@@ -26,6 +27,7 @@ export default function ButtonComponent({
   const styleMap = {
     [ButtonStyleType.Gradient]: styles.linearGradientButton,
     [ButtonStyleType.Logout]: styles.logout,
+    [ButtonStyleType.Primary]: styles.primary,
   };
   const styleApply = styleMap[stylesButton];
 
