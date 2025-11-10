@@ -40,7 +40,7 @@
     ".next/types/dev/types/**/*.ts",
     "**/*.mts",
     ".next/dev/types/**/*.ts"
-  ],
+, "src/app/(routes)/(public)/login/layout.tsx"  ],
   "exclude": [
     "node_modules"
   ]
