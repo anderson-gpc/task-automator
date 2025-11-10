@@ -6,11 +6,14 @@ import ButtonComponent, { ButtonStyleType } from "@/components/Button";
 import useLoginStyles from "@/src/assets/css/__login.styles";
 import login from "@/src/app/actions/login";
 import { GithubOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   async function handleClick() {
-    const url = await login();
-    window.location.href = url;
+    if(await login()) {
+      router.push("/dashboard");
+    }
   }
   const { containerStyle, overlayStyle, boxStyle } = useLoginStyles();
 
