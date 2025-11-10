@@ -4,8 +4,12 @@ import { Drawer } from "antd";
 import { useState } from "react";
 import ButtonComponent, { ButtonStyleType } from "./Button";
 import useStyleDrawer from "@/assets/css/__drawer.style";
-import { LoginOutlined } from "@ant-design/icons";
-import { GithubOutlined } from "@ant-design/icons";
+import {
+  LoginOutlined,
+  ExportOutlined,
+  GithubOutlined,
+  UserOutlined
+} from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
 export default function DrawerComponent() {
@@ -22,7 +26,7 @@ export default function DrawerComponent() {
   };
 
   async function handleClick() {
-    await fetch("/api/logout", {method: "POST"});
+    await fetch("/api/logout", { method: "POST" });
     router.push("/login");
   }
 
@@ -30,7 +34,7 @@ export default function DrawerComponent() {
     <>
       <ButtonComponent
         icon=<GithubOutlined />
-        stylesButton={ButtonStyleType.Gradient}
+        stylesButton={ButtonStyleType.Primary}
         text="Abrir menu"
         onClick={showDrawer}
       />
@@ -42,11 +46,18 @@ export default function DrawerComponent() {
         onClose={onClose}
         open={open}
       >
-        <p>Perfil</p>
-        <p>Seguindo</p>
-        <p>Seguidores</p>
-        <p>Amigos</p>
-        <p>Repositórios</p>
+        <ButtonComponent
+          icon=<ExportOutlined />
+          text="Ir para perfil do Github"
+          stylesButton={ButtonStyleType.Primary}
+          onClick={() => {}}
+        />
+        <ButtonComponent
+          icon=<UserOutlined />
+          text="Visualizar amigos"
+          stylesButton={ButtonStyleType.Primary}
+          onClick={() => {}}
+        />
         <ButtonComponent
           icon=<LoginOutlined />
           stylesButton={ButtonStyleType.Logout}
