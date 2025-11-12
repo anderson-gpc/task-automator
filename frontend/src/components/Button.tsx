@@ -14,6 +14,7 @@ interface ButtonComponentProps {
   onClick: () => void;
   stylesButton: ButtonStyleType;
   icon: React.ReactNode;
+  htmlType?: "button" | "submit" | "reset";
 }
 
 export default function ButtonComponent({
@@ -21,6 +22,7 @@ export default function ButtonComponent({
   onClick,
   stylesButton,
   icon,
+  htmlType = "button"
 }: ButtonComponentProps) {
   const { styles } = useStyleButton();
 
@@ -34,7 +36,7 @@ export default function ButtonComponent({
   return (
     <ConfigProvider button={{ className: styleApply }}>
       <Space>
-        <Button onClick={onClick} type="primary" size="large" icon={icon}>
+        <Button htmlType={htmlType} onClick={onClick} type="primary" size="large" icon={icon}>
           {text}
         </Button>
       </Space>

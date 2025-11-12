@@ -28,7 +28,7 @@
       ],
       "@/components/*": ["./src/components/*"],
       "@/assets/*": ["./src/assets/*"],
-      "@/actions/*": ["./src/app/actions/*"],
+      "@/actions/*": ["./src/app/_actions/*"],
       "@/pages/*": ["./src/pages/*"],
       "@/lib/*": ["./src/lib/*"],
     }
