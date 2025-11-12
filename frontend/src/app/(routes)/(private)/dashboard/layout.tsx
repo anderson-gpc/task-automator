@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }) {
   return (
     <main>
-      <AppbarComponent name="Anderson" />
+      <AppbarComponent />
       {children}
     </main>
   );

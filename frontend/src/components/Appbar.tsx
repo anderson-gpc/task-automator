@@ -1,32 +1,17 @@
 "use client";
 
 import { Avatar, Tooltip } from "antd";
-import { createStyles } from "antd-style";
 import { motion } from "framer-motion";
 import ButtonComponent, { ButtonStyleType } from "./Button";
-import { signOut } from "next-auth/react";
-import {
-  LoginOutlined,
-  UserOutlined,
-  GithubOutlined,
-} from "@ant-design/icons";
+import { signOut, useSession } from "next-auth/react";
+import { LoginOutlined, UserOutlined, GithubOutlined } from "@ant-design/icons";
 import useStyleAppbar from "../assets/css/__appbar.style";
 
-interface AppbarComponentProps {
-  name: string;
-  url?: string;
-  avatarUrl?: string;
-  githubProfile?: string;
-}
-
-
-export function AppbarComponent({
-  name,
-  url,
-  avatarUrl,
-  githubProfile,
-}: AppbarComponentProps) {
+export function AppbarComponent() {
   const { styles } = useStyleAppbar();
+  const { data: session } = useSession();
+  const { user } = session!;
+  const githubProfile = "";
 
   return (
     <motion.div
@@ -36,17 +21,16 @@ export function AppbarComponent({
       className={styles.appbar}
     >
       <div className="appbar-content">
-        {/* Usuário */}
         <div className="user-info">
           <Tooltip title="Ver perfil" mouseEnterDelay={0.2}>
             <motion.div whileHover={{ scale: 1.05 }}>
               <Avatar
-                src={avatarUrl}
+                src={user!.image}
                 style={{
-                  background: avatarUrl
+                  background: user!.image
                     ? undefined
                     : "linear-gradient(135deg, #ff9a9e, #fad0c4)",
-                  color: avatarUrl ? undefined : "#2f2890",
+                  color: user!.image ? undefined : "#2f2890",
                   width: "3rem",
                   height: "3rem",
                   fontSize: "1.2rem",
@@ -55,11 +39,11 @@ export function AppbarComponent({
                   cursor: "pointer",
                 }}
               >
-                {!avatarUrl && name[0]?.toUpperCase()}
+                {!user!.image && user!.name![0]?.toUpperCase()}
               </Avatar>
             </motion.div>
           </Tooltip>
-          <p>{name}</p>
+          <p>{user!.name}</p>
         </div>
 
         {/* Botões */}
