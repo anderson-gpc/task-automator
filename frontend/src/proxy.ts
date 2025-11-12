@@ -1,36 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAuthenticated } from "./app/lib/auth";
+import { auth } from "./auth";
 
 export const config = {
-  matcher: [
-    "/",
-    "/dashboard/:path*",
-    "/login/:path*"
-],
-};
+    matcher: [
+        "/dashboard/:path*"
+    ]
+}
 
-export async function proxy(request: NextRequest) {
-  const url = new URL(request.url);
-  const path = url.pathname;
+export async function proxy(req: NextRequest) {
+    const session = await auth();
 
-  const publicRoutes = ["/", "/login"];
-  const publicPrefixes = ["/public", "/assets"];
+    if (!session) return NextResponse.redirect(new URL("/login", req.url));
 
-  if (publicPrefixes.some((p) => path.startsWith(p))) {
     return NextResponse.next();
-  }
-
-  const authed = await isAuthenticated(request);
-  if (publicRoutes.includes(path)) {
-    if (authed && path === "/login") {
-        return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
-    return NextResponse.next();
-  }
-
-  if (!authed) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  return NextResponse.next();
 }

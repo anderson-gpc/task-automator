@@ -4,22 +4,25 @@ import { Flex } from "antd";
 import DividerComponent from "@/components/Divider";
 import ButtonComponent, { ButtonStyleType } from "@/components/Button";
 import useLoginStyles from "@/src/assets/css/__login.styles";
-import login from "@/src/app/actions/login";
 import { GithubOutlined } from "@ant-design/icons";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
-  const router = useRouter();
-  async function handleClick() {
-
-    const user = await login();
-    if(user) {
-      const userString = encodeURIComponent(JSON.stringify(user));
-      router.push(`/dashboard?user=${userString}`);
-    }
-  
-  }
   const { containerStyle, overlayStyle, boxStyle } = useLoginStyles();
+  const router = useRouter();
+  const { data: _, status } = useSession();
+
+  async function handleClick(): Promise<void> {
+    await signIn("github");
+  }
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/dashboard");
+    }
+  }, [status, router]);
 
   return (
     <div style={containerStyle}>

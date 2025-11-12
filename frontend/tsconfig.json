@@ -29,7 +29,8 @@
       "@/components/*": ["./src/components/*"],
       "@/assets/*": ["./src/assets/*"],
       "@/actions/*": ["./src/app/actions/*"],
-      "@/pages/*": ["./src/pages/*"]
+      "@/pages/*": ["./src/pages/*"],
+      "@/lib/*": ["./src/lib/*"],
     }
   },
   "include": [
@@ -40,7 +41,7 @@
     ".next/types/dev/types/**/*.ts",
     "**/*.mts",
     ".next/dev/types/**/*.ts"
-, "src/app/(routes)/(public)/login/layout.tsx"  ],
+, "src/app/(routes)/(public)/login/layout.tsx", "./proxy.ts"  ],
   "exclude": [
     "node_modules"
   ]

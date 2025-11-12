@@ -8,14 +8,13 @@ import {
   LoginOutlined,
   ExportOutlined,
   GithubOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export default function DrawerComponent() {
   const [open, setOpen] = useState(false);
   const { styles } = useStyleDrawer();
-  const router = useRouter();
 
   const showDrawer = () => {
     setOpen(true);
@@ -24,11 +23,6 @@ export default function DrawerComponent() {
   const onClose = () => {
     setOpen(false);
   };
-
-  async function handleClick() {
-    await fetch("/api/logout", { method: "POST" });
-    router.push("/login");
-  }
 
   return (
     <>
@@ -61,7 +55,7 @@ export default function DrawerComponent() {
         <ButtonComponent
           icon=<LoginOutlined />
           stylesButton={ButtonStyleType.Logout}
-          onClick={handleClick}
+          onClick={() => signOut()}
           text="Logout"
         />
       </Drawer>
