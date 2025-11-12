@@ -12,8 +12,7 @@ export function AppbarComponent() {
   const { data: session, status } = useSession();
 
   const user = session?.user;
-  const githubProfile = "";
-
+  console.log(user?.githubProfile.html_url)
   if (status === "loading") {
     return (
       <motion.div
@@ -83,12 +82,12 @@ export function AppbarComponent() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          {githubProfile && (
+          {user.githubProfile.html_url && (
             <ButtonComponent
               icon={<GithubOutlined />}
               text="Perfil do GitHub"
               stylesButton={ButtonStyleType.Primary}
-              onClick={() => window.open(githubProfile, "_blank")}
+              onClick={() => window.open(user.githubProfile.html_url, "_blank")}
             />
           )}
 
