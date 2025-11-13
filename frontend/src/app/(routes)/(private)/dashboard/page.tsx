@@ -1,13 +1,18 @@
 "use client";
 
-import { verifyUser } from "@/src/app/_actions/(mysql)/user-action";
+import {
+  verifyRefinedAcessToken,
+  verifyUser,
+} from "@/src/app/_actions/(mysql)/user-action";
 import { User } from "@/src/interfaces/user-interface";
 import { DashboardPage } from "@/src/pages/home/DashboardPage";
+import DefaultPage from "@/src/pages/home/DefaultPage";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
+  const [actionsGit, setActionGit] = useState<boolean>(false);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -20,9 +25,10 @@ export default function Dashboard() {
 
         try {
           await verifyUser(user);
-          console.log("Usuário verificado com sucesso!");
+          const token = await verifyRefinedAcessToken(user.githubId);
+          if (token) setActionGit(true);
         } catch (error) {
-          console.error("Erro ao verificar usuário:", error);
+          throw new Error(`[ERROR]: ${error}`);
         }
       }
     };
@@ -30,5 +36,9 @@ export default function Dashboard() {
     checkUser();
   }, [status, session]);
 
-  return <DashboardPage />;
+  if (actionsGit === true) {
+    return <DashboardPage />;
+  } else {
+    return <DefaultPage />
+  }
 }

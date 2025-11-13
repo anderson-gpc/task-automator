@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
+    <main className="w-full h-full">
       <AppbarComponent />
       {children}
     </main>
