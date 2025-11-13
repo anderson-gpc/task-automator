@@ -6,7 +6,6 @@ import { PrismaError } from "@/src/lib/(prisma)/PrismaError";
 
 export async function createUser(data: User): Promise<boolean> {
   try {
-    console.log('Try');
     await prisma.user.create({
       data: data,
     });
@@ -24,6 +23,16 @@ export async function verifyUser(data: User): Promise<boolean> {
       await createUser(data)
       return true;
     }
+  } catch (e) {
+    throw PrismaError.handle(e);
+  }
+}
+
+export async function verifyRefinedAcessToken(githubId: number): Promise<boolean> {
+  try {
+    const user = await prisma.user.findFirst({where: {githubId: githubId}});
+    if (user?.refinedAcessToken) return true;
+    return false;
   } catch (e) {
     throw PrismaError.handle(e);
   }
