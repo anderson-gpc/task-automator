@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -8,23 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model github_repository {
-  id           Int    @id @default(autoincrement())
-  githubId     String @db.VarChar(20)
-  githubRepoId String @db.VarChar(50)
-  url          String @db.VarChar(255)
-  user         user   @relation(fields: [githubId], references: [githubId], onDelete: Cascade, onUpdate: NoAction, map: "FK_b9049d9ce393439320471cf4e8f")
-
-  @@index([githubId], map: "FK_b9049d9ce393439320471cf4e8f")
+model User {
+  id Int @id @default(autoincrement())
+  login String @unique
+  githubId Int @unique
+  repository Repository[]
+  refinedAcessToken String?
 }
 
-model user {
-  id                Int                 @id @default(autoincrement())
-  githubId          String              @unique(map: "IDX_0d84cc6a830f0e4ebbfcd6381d") @db.VarChar(20)
-  username          String              @db.VarChar(255)
-  displayName       String              @db.VarChar(255)
-  photo             String?             @db.VarChar(255)
-  acessToken        String?             @db.VarChar(255)
-  refinedAcessToken String?             @db.VarChar(255)
-  github_repository github_repository[]
+model Repository {
+  id Int @id @default(autoincrement())
+  html_url String
+  name String
+  userId Int?
+  user User? @relation(fields: [userId], references: [githubId], onDelete: Cascade, onUpdate:Cascade)
 }
