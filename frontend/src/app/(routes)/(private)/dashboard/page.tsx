@@ -1,42 +1,34 @@
-import DrawerComponent from "@/components/Drawer";
-import { ButtonStyleType } from "@/src/components/Button";
-import InfoPanelComponent from "@/src/components/InfoPanel";
-import { GithubOutlined } from "@ant-design/icons";
+"use client";
 
-interface Seguidor {
-  id: number;
-  login: string;
-  username: string;
-  avatar_url: string;
-  url: string;
-}
-
-const seguidores: Seguidor[] = [
-  {
-    id: 1,
-    login: "anderson",
-    username: "@anderson.dev",
-    avatar_url: "https://avatars.githubusercontent.com/u/1?v=4",
-    url: "https://github.com/anderson",
-  },
-];
+import { verifyUser } from "@/src/app/_actions/(mysql)/user-action";
+import { User } from "@/src/interfaces/user-interface";
+import { DashboardPage } from "@/src/pages/login/DashboardPage";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  return (
-    <>
-      <DrawerComponent />{" "}
-      <InfoPanelComponent
-        title="Seguidores"
-        ariaLabel="Painel de seguidores"
-        data={seguidores}
-        buttons={[
-          {
-            text: "Ver perfil",
-            stylesButton: ButtonStyleType.Gradient,
-            icon: <GithubOutlined />,
-          },
-        ]}
-      />{" "}
-    </>
-  );
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if (status === "authenticated" && session?.user?.githubProfile) {
+        const githubProfile = session.user.githubProfile;
+        const user: User = {
+          login: githubProfile.login,
+          githubId: githubProfile.id,
+        };
+
+        try {
+          await verifyUser(user);
+          console.log("Usuário verificado com sucesso!");
+        } catch (error) {
+          console.error("Erro ao verificar usuário:", error);
+        }
+      }
+    };
+
+    checkUser();
+  }, [status, session]);
+
+  return <DashboardPage />;
 }
