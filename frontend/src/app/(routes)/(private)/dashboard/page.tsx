@@ -2,7 +2,7 @@
 
 import { verifyUser } from "@/src/app/_actions/(mysql)/user-action";
 import { User } from "@/src/interfaces/user-interface";
-import { DashboardPage } from "@/src/pages/login/DashboardPage";
+import { DashboardPage } from "@/src/pages/home/DashboardPage";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 
