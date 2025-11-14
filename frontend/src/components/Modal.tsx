@@ -36,17 +36,14 @@ export default function ModalComponent({
         footer={
           footer
             ? [
-                <Button key="submit" type="primary" danger onClick={closeModal}>
-                  Cancelar
-                </Button>,
-                <Button key="submit" type="primary">
+                <Button key="add" type="primary">
                   Adicionar o meu token
                 </Button>,
               ]
             : []
         }
       >
-        {content.map((node) => node)}
+        {content}
       </Modal>
     </>
   );
