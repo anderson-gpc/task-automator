@@ -2,10 +2,9 @@
 
 import { Avatar, Tooltip } from "antd";
 import { motion } from "framer-motion";
-import ButtonComponent, { ButtonStyleType } from "./Button";
-import { signOut, useSession } from "next-auth/react";
-import { LoginOutlined, UserOutlined, GithubOutlined } from "@ant-design/icons";
+import { useSession } from "next-auth/react";
 import useStyleAppbar from "../assets/css/__appbar.style";
+import ButtonsRowComponent from "./ButtonsRow";
 
 export function AppbarComponent() {
   const { styles } = useStyleAppbar();
@@ -76,37 +75,7 @@ export function AppbarComponent() {
           <p>{user.name}</p>
         </div>
 
-        <motion.div
-          style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          {user.githubProfile.html_url && (
-            <ButtonComponent
-              icon={<GithubOutlined />}
-              text="Perfil do GitHub"
-              stylesButton={ButtonStyleType.Primary}
-              onClick={() => window.open(user.githubProfile.html_url, "_blank")}
-            />
-          )}
-
-          <ButtonComponent
-            icon={<UserOutlined />}
-            text="Amigos"
-            stylesButton={ButtonStyleType.Primary}
-            onClick={() => {}}
-          />
-
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <ButtonComponent
-              icon={<LoginOutlined />}
-              text="Logout"
-              stylesButton={ButtonStyleType.Logout}
-              onClick={() => signOut({ callbackUrl: "/login" })}
-            />
-          </motion.div>
-        </motion.div>
+        <ButtonsRowComponent user={user} />
       </div>
     </motion.div>
   );
