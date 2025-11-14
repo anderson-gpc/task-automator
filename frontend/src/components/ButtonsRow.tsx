@@ -2,10 +2,14 @@ import { motion } from "framer-motion";
 import ButtonComponent, { ButtonStyleType } from "./Button";
 import {
   GithubOutlined,
-  UserOutlined,
   LogoutOutlined,
+  SettingOutlined,
+  TeamOutlined,
+  UsergroupDeleteOutlined
 } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { verifyRefinedAcessToken } from "../app/_actions/(mysql)/user-action";
 
 interface ButtonsRowComponentProps {
   user: any;
@@ -14,6 +18,16 @@ interface ButtonsRowComponentProps {
 export default function ButtonsRowComponent({
   user,
 }: ButtonsRowComponentProps) {
+  const [token, setToken] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getToken = async () => {
+      const tokenInBd = await verifyRefinedAcessToken(user.githubProfile.id);
+      if (tokenInBd) setToken(true);
+    };
+    getToken();
+  }, [token]);
+
   return (
     <motion.div
       style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}
@@ -30,12 +44,28 @@ export default function ButtonsRowComponent({
         />
       ) : null}
 
-      <ButtonComponent
-        icon={<UserOutlined />}
+      {token ? <ButtonComponent
+        icon={<TeamOutlined />}
         text="Amigos"
         stylesButton={ButtonStyleType.Primary}
         onClick={() => {}}
+      /> : null}
+
+      {token ? <ButtonComponent
+        icon={<UsergroupDeleteOutlined />}
+        text="Não seguidores"
+        stylesButton={ButtonStyleType.Primary}
+        onClick={() => {}}
+      /> : null}
+
+      {
+        token ? null : <ButtonComponent
+        icon={<SettingOutlined />}
+        text="Configurar token"
+        stylesButton={ButtonStyleType.Primary}
+        onClick={() => {}}
       />
+      }
 
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <ButtonComponent
