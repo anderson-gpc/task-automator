@@ -12,7 +12,7 @@ export function AppbarComponent() {
   const { data: session, status } = useSession();
 
   const user = session?.user;
-  console.log(user?.githubProfile.html_url)
+
   if (status === "loading") {
     return (
       <motion.div
