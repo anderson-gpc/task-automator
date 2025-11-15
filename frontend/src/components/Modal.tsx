@@ -33,15 +33,7 @@ export default function ModalComponent({
         closable={{ "aria-label": "Fechar modal" }}
         open={isModalOpen}
         onCancel={closeModal}
-        footer={
-          footer
-            ? [
-                <Button key="add" type="primary">
-                  Adicionar o meu token
-                </Button>,
-              ]
-            : []
-        }
+        footer={[]}
       >
         {content}
       </Modal>
