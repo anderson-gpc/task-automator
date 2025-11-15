@@ -3,13 +3,13 @@ import ButtonComponent, { ButtonStyleType } from "./Button";
 import {
   GithubOutlined,
   LogoutOutlined,
-  SettingOutlined,
   TeamOutlined,
   UsergroupDeleteOutlined
 } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { verifyRefinedAcessToken } from "../app/_actions/(mysql)/user-action";
+import ModalActionComponent from "./ModalAction";
 
 interface ButtonsRowComponentProps {
   user: any;
@@ -59,12 +59,7 @@ export default function ButtonsRowComponent({
       /> : null}
 
       {
-        token ? null : <ButtonComponent
-        icon={<SettingOutlined />}
-        text="Configurar token"
-        stylesButton={ButtonStyleType.Primary}
-        onClick={() => {}}
-      />
+        token ? null : <ModalActionComponent/>
       }
 
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
