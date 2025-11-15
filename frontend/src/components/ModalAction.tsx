@@ -1,14 +1,15 @@
 import { Button, Card, Modal, Space } from "antd";
 import ButtonComponent from "./Button";
-import {
-  DeleteOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, SettingOutlined } from "@ant-design/icons";
 import { ButtonStyleType } from "./Button";
 import { useState } from "react";
 import FormComponent from "./FormComponent";
 
-export default function ModalActionComponent() {
+export default function ModalActionComponent({
+  githubId,
+}: {
+  githubId: number;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => setIsModalOpen(true);
@@ -45,7 +46,7 @@ export default function ModalActionComponent() {
               body: { display: "flex", flexDirection: "column", gap: "12px" },
             }}
           >
-            <FormComponent />
+            <FormComponent githubId={githubId} />
           </Card>
 
           <Card

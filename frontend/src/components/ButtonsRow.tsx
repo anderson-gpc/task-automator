@@ -38,7 +38,7 @@ export default function ButtonsRowComponent({
       {user ? (
         <ButtonComponent
           icon={<GithubOutlined />}
-          text="Perfil do GitHub"
+          text="Perfil"
           stylesButton={ButtonStyleType.Primary}
           onClick={() => window.open(user.githubProfile.html_url, "_blank")}
         />
@@ -59,7 +59,7 @@ export default function ButtonsRowComponent({
       /> : null}
 
       {
-        token ? null : <ModalActionComponent/>
+        token ? null : <ModalActionComponent githubId={user.githubProfile.id}/>
       }
 
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
