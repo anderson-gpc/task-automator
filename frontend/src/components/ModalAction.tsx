@@ -4,6 +4,7 @@ import { DeleteOutlined, SettingOutlined } from "@ant-design/icons";
 import { ButtonStyleType } from "./Button";
 import { useState } from "react";
 import FormComponent from "./FormComponent";
+import { removeRefinedAcessToken } from "../app/_actions/(mysql)/token-action";
 
 export default function ModalActionComponent({
   githubId,
@@ -14,6 +15,9 @@ export default function ModalActionComponent({
 
   const showModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const deleteToken = async () => {
+    await removeRefinedAcessToken(githubId);
+  };
 
   return (
     <>
@@ -61,6 +65,7 @@ export default function ModalActionComponent({
               danger
               icon={<DeleteOutlined />}
               style={{ width: "150px" }}
+              onClick={deleteToken}
             >
               Excluir token
             </Button>

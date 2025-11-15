@@ -4,7 +4,7 @@ import {
   GithubOutlined,
   LogoutOutlined,
   TeamOutlined,
-  UsergroupDeleteOutlined
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -44,23 +44,27 @@ export default function ButtonsRowComponent({
         />
       ) : null}
 
-      {token ? <ButtonComponent
-        icon={<TeamOutlined />}
-        text="Amigos"
-        stylesButton={ButtonStyleType.Primary}
-        onClick={() => {}}
-      /> : null}
+      {token ? (
+        <ButtonComponent
+          icon={<TeamOutlined />}
+          text="Amigos"
+          stylesButton={ButtonStyleType.Primary}
+          onClick={() => {}}
+        />
+      ) : null}
 
-      {token ? <ButtonComponent
-        icon={<UsergroupDeleteOutlined />}
-        text="Não seguidores"
-        stylesButton={ButtonStyleType.Primary}
-        onClick={() => {}}
-      /> : null}
-
-      {
+      {token ? (
+        <ButtonComponent
+          icon={<UsergroupDeleteOutlined />}
+          text="Não seguidores"
+          stylesButton={ButtonStyleType.Primary}
+          onClick={() => {}}
+        />
+      ) : null}
+      <ModalActionComponent githubId={user.githubProfile.id} />
+      {/* {
         token ? null : <ModalActionComponent githubId={user.githubProfile.id}/>
-      }
+      } */}
 
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <ButtonComponent

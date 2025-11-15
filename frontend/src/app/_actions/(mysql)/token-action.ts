@@ -31,3 +31,17 @@ export async function addRefinedAcessToken(
     throw PrismaError.handle(e);
   }
 }
+
+export async function removeRefinedAcessToken(
+  githubId: number
+): Promise<boolean> {
+  try {
+    await prisma.user.update({
+      data: { refinedAcessToken: null },
+      where: { githubId: githubId },
+    });
+    return true;
+  } catch (e) {
+    throw PrismaError.handle(e);
+  }
+}
