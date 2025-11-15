@@ -27,13 +27,3 @@ export async function verifyUser(data: User): Promise<boolean> {
     throw PrismaError.handle(e);
   }
 }
-
-export async function verifyRefinedAcessToken(githubId: number): Promise<boolean> {
-  try {
-    const user = await prisma.user.findFirst({where: {githubId: githubId}});
-    if (user?.refinedAcessToken) return true;
-    return false;
-  } catch (e) {
-    throw PrismaError.handle(e);
-  }
-}

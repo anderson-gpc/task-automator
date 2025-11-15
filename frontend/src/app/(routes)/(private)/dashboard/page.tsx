@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  verifyRefinedAcessToken,
-  verifyUser,
-} from "@/src/app/_actions/(mysql)/user-action";
+import { verifyUser } from "@/src/app/_actions/(mysql)/user-action";
+import { verifyRefinedAcessToken } from "@/src/app/_actions/(mysql)/token-action";
 import { User } from "@/src/interfaces/user-interface";
 import { DashboardPage } from "@/src/pages/home/DashboardPage";
 import DefaultPage from "@/src/pages/home/DefaultPage";
@@ -39,6 +37,6 @@ export default function Dashboard() {
   if (actionsGit === true) {
     return <DashboardPage />;
   } else {
-    return <DefaultPage />
+    return <DefaultPage />;
   }
 }

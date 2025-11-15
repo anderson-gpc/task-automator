@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { verifyRefinedAcessToken } from "../app/_actions/(mysql)/user-action";
+import { verifyRefinedAcessToken } from "../app/_actions/(mysql)/token-action";
 import ModalActionComponent from "./ModalAction";
 
 interface ButtonsRowComponentProps {
