@@ -1,15 +1,18 @@
 import { createStyles } from "antd-style";
+import { Colors } from "@/src/constants/colors";
 
 const useStyleButton = createStyles(({ prefixCls, css }) => ({
   linearGradientButton: css`
-    &.${prefixCls}-btn-primary:not([disabled]):not(
-        .${prefixCls}-btn-dangerous
-      ) {
+    &.${prefixCls}-btn-primary:not([disabled]):not(.${prefixCls}-btn-dangerous) {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #6253e1, #000);
+      background: linear-gradient(
+        135deg,
+        ${Colors.DeepVioletSolid},
+        ${Colors.Black07}
+      );
       border: none;
-      color: #fff;
+      color: ${Colors.White};
       width: 100%;
       transition: all 0.3s ease-in-out;
 
@@ -23,7 +26,11 @@ const useStyleButton = createStyles(({ prefixCls, css }) => ({
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(135deg, #000, #6253e1);
+        background: linear-gradient(
+          135deg,
+          ${Colors.Black07},
+          ${Colors.DeepVioletSolid}
+        );
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
         z-index: 0;
@@ -37,19 +44,17 @@ const useStyleButton = createStyles(({ prefixCls, css }) => ({
   `,
 
   primary: css`
-    &.${prefixCls}-btn-primary:not([disabled]):not(
-        .${prefixCls}-btn-dangerous
-      ) {
-      background: #2f2890;
+    &.${prefixCls}-btn-primary:not([disabled]):not(.${prefixCls}-btn-dangerous) {
+      background: ${Colors.DeepVioletSolid};
       border: none;
-      color: #ffffff;
+      color: ${Colors.White};
       font-weight: 600;
       letter-spacing: 0.4px;
       border-radius: 10px;
       width: 100%;
       padding: 0.75rem 1rem;
       transition: all 0.25s ease;
-      box-shadow: 0 4px 10px rgba(47, 40, 144, 0.3);
+      box-shadow: 0 4px 10px ${Colors.VioletShadow};
 
       > span {
         position: relative;
@@ -58,38 +63,37 @@ const useStyleButton = createStyles(({ prefixCls, css }) => ({
       }
 
       &:hover {
-        background: #3b33b0;
-        box-shadow: 0 6px 18px rgba(98, 83, 225, 0.4),
-          0 0 10px rgba(98, 83, 225, 0.6) inset;
+        background: ${Colors.DeepVioletHover};
+        box-shadow:
+          0 6px 18px ${Colors.VioletShadowStrong},
+          0 0 10px ${Colors.VioletShadowGlow} inset;
         transform: translateY(-1px);
       }
 
       &:focus-visible {
-        outline: 2px solid rgba(98, 83, 225, 0.7);
+        outline: 2px solid ${Colors.VioletShadowGlow};
         outline-offset: 3px;
       }
 
       &:active {
-        background: #261f6e;
+        background: ${Colors.DeepVioletActive};
         transform: scale(0.98);
-        box-shadow: 0 2px 8px rgba(47, 40, 144, 0.25) inset;
+        box-shadow: 0 2px 8px ${Colors.Black25} inset;
       }
     }
   `,
 
   logout: css`
-    &.${prefixCls}-btn-primary:not([disabled]):not(
-        .${prefixCls}-btn-dangerous
-      ) {
+    &.${prefixCls}-btn-primary:not([disabled]):not(.${prefixCls}-btn-dangerous) {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #ff4d4f, #b32022);
+      background: linear-gradient(135deg, ${Colors.LogoutStart}, ${Colors.LogoutEnd});
       border: none;
-      color: #fff;
+      color: ${Colors.White};
       font-weight: 600;
       letter-spacing: 0.5px;
       transition: all 0.25s ease-in-out;
-      box-shadow: 0 4px 15px rgba(255, 77, 79, 0.35);
+      box-shadow: 0 4px 15px ${Colors.LogoutShadow};
       width: 100%;
       border-radius: 10px;
 
@@ -103,7 +107,7 @@ const useStyleButton = createStyles(({ prefixCls, css }) => ({
         content: "";
         position: absolute;
         inset: 0;
-        background: rgba(255, 255, 255, 0.1);
+        background: ${Colors.Gray01};
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
         z-index: 0;
@@ -115,26 +119,30 @@ const useStyleButton = createStyles(({ prefixCls, css }) => ({
       }
 
       &:hover {
-        background: linear-gradient(135deg, #ff2d2f, #8b1b1d);
-        box-shadow: 0 6px 20px rgba(255, 45, 47, 0.45);
+        background: linear-gradient(
+          135deg,
+          ${Colors.LogoutHoverStart},
+          ${Colors.LogoutHoverEnd}
+        );
+        box-shadow: 0 6px 20px ${Colors.LogoutShadowHover};
         transform: translateY(-2px);
       }
 
       &:focus-visible {
-        outline: 2px solid rgba(255, 77, 79, 0.6);
+        outline: 2px solid ${Colors.LogoutShadow};
         outline-offset: 3px;
       }
 
       &:active {
-        background: #d9282a;
+        background: ${Colors.LogoutActive};
         transform: scale(0.97);
-        box-shadow: 0 3px 10px rgba(255, 77, 79, 0.35);
+        box-shadow: 0 3px 10px ${Colors.LogoutShadow};
       }
     }
 
     &.${prefixCls}-button-default {
       &:hover {
-        color: #fff;
+        color: ${Colors.White};
       }
     }
   `,

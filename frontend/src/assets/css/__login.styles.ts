@@ -1,3 +1,4 @@
+import { Colors } from '@/src/constants/colors';
 import { CSSProperties } from 'react';
 
 const containerStyle: CSSProperties = {
@@ -16,7 +17,7 @@ const containerStyle: CSSProperties = {
 const overlayStyle: CSSProperties = {
   position: 'absolute',
   inset: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  backgroundColor: `${Colors.Black07}`,
   zIndex: 0,
 };
 
@@ -27,9 +28,9 @@ const boxStyle: CSSProperties = {
   position: 'relative',
   overflow: 'hidden',
   backdropFilter: 'blur(12px)',
-  background: 'rgba(255, 255, 255, 0.15)',
-  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-  color: '#fff',
+  background: `${Colors.Gray015}`,
+  boxShadow: `0 4px 30px ${Colors.Black01}`,
+  color: `${Colors.White}`,
   textAlign: 'center',
   zIndex: 1,
 };

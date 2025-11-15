@@ -1,12 +1,13 @@
 import { createStyles } from "antd-style";
+import { Colors } from "@/src/constants/colors";
 
 
 const useStyleAppbar = createStyles(({ css }) => ({
   appbar: css`
     backdrop-filter: blur(10px);
-    background: rgba(47, 40, 144, 0.85);
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: ${Colors.DeepViolet};
+    box-shadow: 0 2px 15px ${Colors.Black25};
+    border-bottom: 1px solid ${Colors.Gray01};
     padding: 1rem 2rem;
     position: sticky;
     top: 0;
