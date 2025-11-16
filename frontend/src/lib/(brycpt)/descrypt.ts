@@ -18,4 +18,6 @@ export async function descrypt(token: string) {
     deciper.update(encrypted),
     deciper.final(),
   ]);
+
+  return descrypted.toString();
 }

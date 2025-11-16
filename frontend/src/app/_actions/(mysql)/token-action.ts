@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/(prisma)/prisma";
 import { PrismaError } from "@/lib/(prisma)/PrismaError";
+import { descrypt } from "@/src/lib/(brycpt)/descrypt";
 import encrypt from "@/src/lib/(brycpt)/encrypt";
 
 export async function verifyRefinedAcessToken(
@@ -41,6 +42,18 @@ export async function removeRefinedAcessToken(
       where: { githubId: githubId },
     });
     return true;
+  } catch (e) {
+    throw PrismaError.handle(e);
+  }
+}
+
+export async function getRefinedAcessToken(
+  githubId: number
+): Promise<string | null> {
+  try {
+    const user = await prisma.user.findFirst({ where: { githubId: githubId } });
+    if (user?.refinedAcessToken === null) return null;
+    else return user?.refinedAcessToken!;
   } catch (e) {
     throw PrismaError.handle(e);
   }
