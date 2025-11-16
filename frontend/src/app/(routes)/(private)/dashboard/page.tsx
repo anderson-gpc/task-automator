@@ -6,11 +6,13 @@ import { User } from "@/src/interfaces/user-interface";
 import { DashboardPage } from "@/src/pages/home/DashboardPage";
 import DefaultPage from "@/src/pages/home/DefaultPage";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import { HomeContext } from "@/src/context";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const [actionsGit, setActionGit] = useState<boolean>(false);
+  const homeContext = use(HomeContext);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -24,7 +26,9 @@ export default function Dashboard() {
         try {
           await verifyUser(user);
           const token = await verifyRefinedAcessToken(user.githubId);
+          console.log(`Dashboard: [${token}]`);
           if (token) setActionGit(true);
+          else setActionGit(false);
         } catch (error) {
           throw new Error(`[ERROR]: ${error}`);
         }
@@ -32,7 +36,7 @@ export default function Dashboard() {
     };
 
     checkUser();
-  }, [status, session]);
+  }, [status, session, homeContext?.token]);
 
   if (actionsGit === true) {
     return <DashboardPage />;

@@ -1,32 +1,20 @@
+"use client"
+
+
 import { motion } from "framer-motion";
 import ButtonComponent, { ButtonStyleType } from "./Button";
 import {
   GithubOutlined,
   LogoutOutlined,
-  TeamOutlined,
-  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import { signOut } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { verifyRefinedAcessToken } from "../app/_actions/(mysql)/token-action";
 import ModalActionComponent from "./ModalAction";
+import { useSession } from "next-auth/react";
 
-interface ButtonsRowComponentProps {
-  user: any;
-}
 
-export default function ButtonsRowComponent({
-  user,
-}: ButtonsRowComponentProps) {
-  const [token, setToken] = useState<boolean>(false);
-
-  useEffect(() => {
-    const getToken = async () => {
-      const tokenInBd = await verifyRefinedAcessToken(user.githubProfile.id);
-      if (tokenInBd) setToken(true);
-    };
-    getToken();
-  }, [token]);
+export default function ButtonsRowComponent() {
+  const { data: session } = useSession();
+  const user = session?.user!;
 
   return (
     <motion.div
@@ -43,28 +31,8 @@ export default function ButtonsRowComponent({
           onClick={() => window.open(user.githubProfile.html_url, "_blank")}
         />
       ) : null}
-
-      {token ? (
-        <ButtonComponent
-          icon={<TeamOutlined />}
-          text="Amigos"
-          stylesButton={ButtonStyleType.Primary}
-          onClick={() => {}}
-        />
-      ) : null}
-
-      {token ? (
-        <ButtonComponent
-          icon={<UsergroupDeleteOutlined />}
-          text="Não seguidores"
-          stylesButton={ButtonStyleType.Primary}
-          onClick={() => {}}
-        />
-      ) : null}
-      <ModalActionComponent githubId={user.githubProfile.id} />
-      {/* {
-        token ? null : <ModalActionComponent githubId={user.githubProfile.id}/>
-      } */}
+  
+      <ModalActionComponent />
 
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <ButtonComponent

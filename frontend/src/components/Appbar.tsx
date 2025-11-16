@@ -9,7 +9,6 @@ import ButtonsRowComponent from "./ButtonsRow";
 export function AppbarComponent() {
   const { styles } = useStyleAppbar();
   const { data: session, status } = useSession();
-
   const user = session?.user;
 
   if (status === "loading") {
@@ -75,7 +74,7 @@ export function AppbarComponent() {
           <p>{user.name}</p>
         </div>
 
-        <ButtonsRowComponent user={user} />
+        <ButtonsRowComponent />
       </div>
     </motion.div>
   );

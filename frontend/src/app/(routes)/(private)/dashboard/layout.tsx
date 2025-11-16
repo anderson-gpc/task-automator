@@ -1,14 +1,20 @@
+"use client"
+
 import { AppbarComponent } from "@/src/components/Appbar";
+import { HomeProvider } from "@/src/context";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <main className="w-full h-full">
-      <AppbarComponent />
-      {children}
+      <HomeProvider>
+        <AppbarComponent />
+        {children}
+      </HomeProvider>
     </main>
   );
 }
