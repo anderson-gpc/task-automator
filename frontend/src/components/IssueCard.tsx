@@ -10,14 +10,15 @@ interface IssueCardProps {
 
 export default function IssueCard({ issue, onView }: IssueCardProps) {
   return (
-    <Card>
+    <Card style={{ margin: "1rem" }}>
       <Flex vertical gap="0.75rem">
         <Typography.Title level={5} style={{ margin: 0 }}>
           {issue.title}
         </Typography.Title>
 
         <Typography.Text>
-          <strong>Repositório:</strong> {issue.repository?.name ?? issue.repository_url}
+          <strong>Repositório:</strong>{" "}
+          {issue.repository?.name ?? issue.repository_url}
         </Typography.Text>
 
         <Typography.Text>
@@ -27,7 +28,14 @@ export default function IssueCard({ issue, onView }: IssueCardProps) {
         <Flex gap="0.75rem" align="center">
           <Avatar src={issue.user?.avatar_url} />
           <Typography.Text>
-            <strong>Autor:</strong> {issue.user?.login}
+            <strong>Autor:</strong>{" "}
+            <a
+              onClick={() => {
+                window.open(`${issue.user.html_url}`, "_blank");
+              }}
+            >
+              {issue.user?.login}
+            </a>
           </Typography.Text>
         </Flex>
 
