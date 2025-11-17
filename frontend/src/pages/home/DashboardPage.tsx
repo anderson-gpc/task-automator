@@ -10,7 +10,7 @@ import { useDashboardData } from "@/src/hooks/useDashboardData";
 import {
   removeFollowerAction,
   openInNewTab,
-} from "@/src/app/_actions/(github)/github-action";
+} from "@/src/actions/(github)/github-action";
 
 import NetworkComponent from "@/src/components/Network";
 import IssueCard from "@/components/IssueCard";

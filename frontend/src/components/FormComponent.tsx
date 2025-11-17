@@ -4,7 +4,7 @@
 import { Form, Button, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { FormProps } from "antd";
-import { addRefinedAcessToken } from "../app/_actions/(mysql)/token-action";
+import { addRefinedAcessToken } from "../actions/(mysql)/token-action";
 import { useSession } from "next-auth/react";
 import { use } from "react";
 import { HomeContext } from "../context";

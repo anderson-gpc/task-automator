@@ -5,7 +5,7 @@ import DividerComponent from "@/components/Divider";
 import ButtonComponent, { ButtonStyleType } from "@/components/Button";
 import useLoginStyles from "@/src/assets/css/__login.styles";
 import { GithubOutlined } from "@ant-design/icons";
-import githubLogin from "@/src/app/_actions/(github)/login-action";
+import githubLogin from "@/src/actions/(github)/login-action";
 import { motion } from "framer-motion";
 
 export default function LoginPage() {
