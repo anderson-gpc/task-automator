@@ -1,3 +1,5 @@
+"use client";
+
 import { ConfigProvider, Divider } from "antd";
 import { createStyles } from "antd-style";
 
