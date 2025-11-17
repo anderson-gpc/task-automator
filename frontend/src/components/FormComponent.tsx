@@ -1,29 +1,16 @@
-"use client"
-
+"use client";
 
 import { Form, Button, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { FormProps } from "antd";
-import { addRefinedAcessToken } from "@/src/actions/mysql/token-action";
 import { useSession } from "next-auth/react";
-import { use } from "react";
-import { HomeContext } from "@/src/context";
+import { useModalAction } from "@/src/hooks/useModal";
 
 export default function FormComponent() {
   const { data: session } = useSession();
-  const user = session?.user!;
-  const githubId = user.githubProfile.id;
 
-  const homeContext = use(HomeContext);
+  if (!session) return;
 
-  const onFinish: FormProps["onFinish"] = async (values) => {
-    const response = await addRefinedAcessToken(githubId, values.token);
-    if (response) homeContext?.setToken(true);
-  };
-
-  const onFinishFailed: FormProps["onFinishFailed"] = (values) => {
-    console.log(values);
-  };
+  const { onFinish, onFinishFailed } = useModalAction(session);
 
   return (
     <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
@@ -40,12 +27,7 @@ export default function FormComponent() {
         <Input placeholder="Insira o token" />
       </Form.Item>
       <Form.Item>
-        <Button
-          htmlType="submit"
-          type="primary"
-          icon={<PlusOutlined />}
-          style={{ width: "120px", alignSelf: "flex-end" }}
-        >
+        <Button htmlType="submit" type="primary" icon={<PlusOutlined />} block>
           Adicionar
         </Button>
       </Form.Item>

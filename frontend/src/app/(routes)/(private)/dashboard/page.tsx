@@ -26,7 +26,6 @@ export default function Dashboard() {
         try {
           await verifyUser(user);
           const token = await verifyRefinedAcessToken(user.githubId);
-          console.log(`Dashboard: [${token}]`);
           if (token) setActionGit(true);
           else setActionGit(false);
         } catch (error) {

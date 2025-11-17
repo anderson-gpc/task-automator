@@ -4,27 +4,16 @@ import { Button, Card, Modal, Space } from "antd";
 import ButtonComponent from "./Button";
 import { DeleteOutlined, SettingOutlined } from "@ant-design/icons";
 import { ButtonStyleType } from "./Button";
-import { use, useState } from "react";
 import FormComponent from "./FormComponent";
-import { removeRefinedAcessToken } from "@/actions/mysql/token-action";
 import { useSession } from "next-auth/react";
-import { HomeContext } from "@/src/context";
+import { useModalAction } from "../hooks/useModal";
 
 export default function ModalActionComponent() {
   const { data: session } = useSession();
-  const user = session?.user!;
-  const githubId = user.githubProfile.id;
+  
+  if (!session) return;
 
-  const homeContext = use(HomeContext);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const deleteToken = async () => {
-    const response = await removeRefinedAcessToken(githubId);
-    if (response) homeContext?.setToken(false);
-  };
+  const {isModalOpen, showModal, closeModal, deleteToken} = useModalAction(session);
 
   return (
     <>
@@ -71,11 +60,11 @@ export default function ModalActionComponent() {
               type="primary"
               danger
               icon={<DeleteOutlined />}
-              style={{ width: "150px" }}
               onClick={() => {
                 deleteToken();
                 closeModal();
               }}
+              block
             >
               Excluir token
             </Button>

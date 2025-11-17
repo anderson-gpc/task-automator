@@ -19,10 +19,12 @@ export function DashboardPage() {
   const { data: session } = useSession();
   const { styles } = useDashboardStyles();
 
+  if (!session) return;
+  if (!session?.acessToken) return null;
+
   const { mutualFollowers, nonFollowers, issues, loading } =
     useDashboardData(session);
 
-  if (!session?.acessToken) return null;
   if (loading)
     return (
       <Flex
