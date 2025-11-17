@@ -1,8 +1,8 @@
 "use server";
 
-import {prisma} from "@/lib/(prisma)/prisma";
-import { User } from "@/src/interfaces/user-interface";
-import { PrismaError } from "@/src/lib/(prisma)/PrismaError";
+import {prisma} from "@/lib/prisma/prisma";
+import { User } from "@/interfaces/user-interface";
+import { PrismaError } from "@/lib/prisma/PrismaError";
 
 export async function createUser(data: User): Promise<boolean> {
   try {

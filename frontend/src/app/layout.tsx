@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@/src/assets/css/globals.css";
+import "@/assets/css/globals.css";
 import Provider from "@/components/SessionProvider";
 import { Poppins } from "next/font/google";
 

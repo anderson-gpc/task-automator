@@ -1,7 +1,6 @@
 "use server";
 
 import crypto from "crypto";
-import { descrypt } from "./descrypt";
 
 
 const key = Buffer.from(process.env.CRYPT_KEY!, "base64");

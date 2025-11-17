@@ -6,9 +6,9 @@ import { DeleteOutlined, SettingOutlined } from "@ant-design/icons";
 import { ButtonStyleType } from "./Button";
 import { use, useState } from "react";
 import FormComponent from "./FormComponent";
-import { removeRefinedAcessToken } from "../actions/(mysql)/token-action";
+import { removeRefinedAcessToken } from "@/actions/mysql/token-action";
 import { useSession } from "next-auth/react";
-import { HomeContext } from "../context";
+import { HomeContext } from "@/src/context";
 
 export default function ModalActionComponent() {
   const { data: session } = useSession();

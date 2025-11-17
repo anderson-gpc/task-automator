@@ -2,17 +2,17 @@
 
 import { useSession } from "next-auth/react";
 import { Flex, Card, Splitter } from "antd";
-import useDashboardStyles from "@/src/assets/css/__dashboard.style";
+import useDashboardStyles from "@/assets/css/__dashboard.style";
 import { ThreeDot } from "react-loading-indicators";
-import { Colors } from "@/src/constants/colors";
+import { Colors } from "@/constants/colors";
 
-import { useDashboardData } from "@/src/hooks/useDashboardData";
+import { useDashboardData } from "@/hooks/useDashboardData";
 import {
   removeFollowerAction,
   openInNewTab,
-} from "@/src/actions/(github)/github-action";
+} from "@/actions/github/github-action";
 
-import NetworkComponent from "@/src/components/Network";
+import NetworkComponent from "@/components/Network";
 import IssueCard from "@/components/IssueCard";
 
 export function DashboardPage() {

@@ -1,4 +1,4 @@
-import { Colors } from '@/src/constants/colors';
+import { Colors } from '@/constants/colors';
 import { CSSProperties } from 'react';
 
 const containerStyle: CSSProperties = {

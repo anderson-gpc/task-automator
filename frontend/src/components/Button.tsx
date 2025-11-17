@@ -1,7 +1,7 @@
 "use client";
 
 import { ConfigProvider, Space, Button } from "antd";
-import useStyleButton from "../assets/css/__button.style";
+import useStyleButton from "@/assets/css/__button.style";
 
 export enum ButtonStyleType {
   Gradient = "gradient",

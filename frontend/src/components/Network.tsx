@@ -2,8 +2,8 @@
 
 import { Avatar, Button, Card, Flex, Typography } from "antd";
 import { LinkOutlined, UserDeleteOutlined } from "@ant-design/icons";
-import { NetworkInterface } from "@/src/interfaces/network-interface";
-import { Colors } from "../constants/colors";
+import { NetworkInterface } from "@/interfaces/network-interface";
+import { Colors } from "@/constants/colors";
 import { useState } from "react";
 
 interface NetworkProps {

@@ -3,7 +3,7 @@
 import { InfoCircleFilled } from "@ant-design/icons";
 import { Slab } from "react-loading-indicators";
 import ModalComponent from "@/components/Modal";
-import { InfoContent } from "@/src/constants/texts";
+import { InfoContent } from "@/constants/texts";
 
 export default function DefaultPage() {
   return (

@@ -3,7 +3,7 @@
 import { Avatar, Tooltip } from "antd";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import useStyleAppbar from "../assets/css/__appbar.style";
+import useStyleAppbar from "@/assets/css/__appbar.style";
 import ButtonsRowComponent from "./ButtonsRow";
 
 export function AppbarComponent() {

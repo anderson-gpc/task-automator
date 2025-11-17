@@ -4,10 +4,10 @@
 import { Form, Button, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { FormProps } from "antd";
-import { addRefinedAcessToken } from "../actions/(mysql)/token-action";
+import { addRefinedAcessToken } from "@/src/actions/mysql/token-action";
 import { useSession } from "next-auth/react";
 import { use } from "react";
-import { HomeContext } from "../context";
+import { HomeContext } from "@/src/context";
 
 export default function FormComponent() {
   const { data: session } = useSession();

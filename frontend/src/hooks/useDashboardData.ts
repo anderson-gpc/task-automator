@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { descrypt } from "@/lib/(brycpt)/descrypt";
-import { octokitClient } from "@/lib/(github)/octokit";
-import { NetworkInterface } from "@/src/interfaces/network-interface";
+import { descrypt } from "@/lib/brycpt/descrypt";
+import { octokitClient } from "@/lib/github/octokit";
+import { NetworkInterface } from "@/interfaces/network-interface";
 
 export function useDashboardData(session: any) {
   const [mutualFollowers, setMutualFollowers] = useState<NetworkInterface[]>([]);

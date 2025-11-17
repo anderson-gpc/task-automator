@@ -1,9 +1,8 @@
 "use server";
 
-import { prisma } from "@/lib/(prisma)/prisma";
-import { PrismaError } from "@/lib/(prisma)/PrismaError";
-import { descrypt } from "@/src/lib/(brycpt)/descrypt";
-import encrypt from "@/src/lib/(brycpt)/encrypt";
+import { prisma } from "@/lib/prisma/prisma";
+import { PrismaError } from "@/lib/prisma/PrismaError";
+import encrypt from "@/lib/brycpt/encrypt";
 
 export async function verifyRefinedAcessToken(
   githubId: number

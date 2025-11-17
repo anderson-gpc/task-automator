@@ -26,11 +26,14 @@
       "@/src/*": [
         "./src/*"
       ],
-      "@/components/*": ["./src/components/*"],
-      "@/assets/*": ["./src/assets/*"],
       "@/actions/*": ["./src/actions/*"],
-      "@/pages/*": ["./src/pages/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/constants/*": ["./src/constants/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/interfaces/*": ["./src/interfaces/*"],
       "@/lib/*": ["./src/lib/*"],
+      "@/pages/*": ["./src/pages/*"],
     }
   },
   "include": [

@@ -1,5 +1,5 @@
 import { createStyles } from "antd-style";
-import { Colors } from "@/src/constants/colors";
+import { Colors } from "@/constants/colors";
 
 const useStyleButton = createStyles(({ prefixCls, css }) => ({
   linearGradientButton: css`

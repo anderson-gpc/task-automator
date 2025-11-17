@@ -1,10 +1,10 @@
 "use client";
 
-import { verifyUser } from "@/src/actions/(mysql)/user-action";
-import { verifyRefinedAcessToken } from "@/src/actions/(mysql)/token-action";
-import { User } from "@/src/interfaces/user-interface";
-import { DashboardPage } from "@/src/pages/home/DashboardPage";
-import DefaultPage from "@/src/pages/home/DefaultPage";
+import { verifyUser } from "@/src/actions/mysql/user-action";
+import { verifyRefinedAcessToken } from "@/src/actions/mysql/token-action";
+import { User } from "@/interfaces/user-interface";
+import { DashboardPage } from "@/pages/home/DashboardPage";
+import DefaultPage from "@/pages/home/DefaultPage";
 import { useSession } from "next-auth/react";
 import { use, useEffect, useState } from "react";
 import { HomeContext } from "@/src/context";
