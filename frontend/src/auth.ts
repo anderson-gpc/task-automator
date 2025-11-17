@@ -5,6 +5,7 @@ import { getRefinedAcessToken } from "./app/_actions/(mysql)/token-action";
 declare module "next-auth" {
   interface Session {
     user: User & { githubProfile: any };
+    acessToken: string;
   }
 }
 
@@ -24,16 +25,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
     async session({ session, token }) {
       session.user.githubProfile = token.githubProfile;
+      
       const refinedAcessToken = await getRefinedAcessToken(
         session.user.githubProfile.id
       );
 
       if (refinedAcessToken != null) {
-        const newSession = { tokenInBd: refinedAcessToken, ...session };
-        return newSession;
-      } else {
-        return session;
+        session.acessToken = refinedAcessToken;
       }
+      return session;
     },
   },
 });
