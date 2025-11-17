@@ -1,7 +1,7 @@
 "use client";
 
 import { Session } from "@auth/core/types";
-import { use, useState } from "react";
+import { use, useContext, useState } from "react";
 import { HomeContext } from "@/src/context";
 import {
   removeRefinedAcessToken,
@@ -16,17 +16,17 @@ export function useModalAction(session: Session) {
   const closeModal = () => setIsModalOpen(false);
 
   const githubId = session?.user.githubProfile.id;
-  const home = use(HomeContext);
+  const {setToken} = useContext(HomeContext)!;
 
   const deleteToken = async () => {
     const response = await removeRefinedAcessToken(githubId);
-    if (response) home?.setToken(false);
+    if (response) setToken(false);
   };
 
   const onFinish: FormProps["onFinish"] = async (values) => {
     const response = await addRefinedAcessToken(githubId, values.token);
     if (response) {
-      home?.setToken(true);
+      setToken(true);
       closeModal();
     }
   };
