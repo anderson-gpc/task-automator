@@ -50,7 +50,7 @@ export function AppbarComponent() {
     >
       <div className="appbar-content">
         <div className="user-info">
-          <Tooltip title="Ver perfil" mouseEnterDelay={0.2}>
+          <Tooltip title={`Foto de ${user.name}`} mouseEnterDelay={0.2}>
             <motion.div whileHover={{ scale: 1.05 }}>
               <Avatar
                 src={user.image ?? undefined}
