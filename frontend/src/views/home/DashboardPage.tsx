@@ -57,6 +57,7 @@ export default function DashboardPage() {
       initial={{ y: 0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1, ease: "easeOut" }}
+      style={{height: "100%"}}
     >
       <Flex className={styles.dashboard}>
         <Splitter className={styles.splitter}>
