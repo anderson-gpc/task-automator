@@ -20,7 +20,9 @@ export function useModalAction(session: Session) {
 
   const deleteToken = async () => {
     const response = await removeRefinedAcessToken(githubId);
-    if (response) setToken(false);
+    if (response) {
+      setToken(false);
+    };
   };
 
   const onFinish: FormProps["onFinish"] = async (values) => {

@@ -6,13 +6,13 @@ import { User } from "@/interfaces/user-interface";
 import DashboardPage from "@/views/home/DashboardPage";
 import DefaultPage from "@/views/home/DefaultPage";
 import { useSession } from "next-auth/react";
-import { use, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "@/src/context";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const [actionsGit, setActionGit] = useState<boolean>(false);
-  const homeContext = use(HomeContext);
+  const {token} = useContext(HomeContext)!;
 
   useEffect(() => {
     const checkUser = async () => {
@@ -35,7 +35,7 @@ export default function Dashboard() {
     };
 
     checkUser();
-  }, [status, session, homeContext?.token]);
+  }, [status, session, token]);
 
   if (actionsGit === true) {
     return <DashboardPage />;

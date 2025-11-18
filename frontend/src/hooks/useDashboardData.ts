@@ -1,31 +1,26 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { descrypt } from "@/lib/brycpt/descrypt";
 import { octokitClient } from "@/lib/github/octokit";
 import { NetworkInterface } from "@/interfaces/network-interface";
-import { HomeContext } from "@/src/context";
 
 export function useDashboardData(session: any) {
   const [mutualFollowers, setMutualFollowers] = useState<NetworkInterface[]>([]);
   const [nonFollowers, setNonFollowers] = useState<NetworkInterface[]>([]);
   const [issues, setIssues] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const home = useContext(HomeContext);
-  const token = home?.token;
 
   useEffect(() => {
-    if (!session?.acessToken) return;
-
     const fetchData = async () => {
       setLoading(true);
 
-      const token = await descrypt(session.acessToken);
+      const githubToken = await descrypt(session.acessToken);
       const login = session.user.githubProfile.login;
 
-      const followersResponse = await octokitClient(1, token, login);
-      const followingResponse = await octokitClient(2, token, login);
-      const issuesResponse = await octokitClient(4, token, login);
+      const followersResponse = await octokitClient(1, githubToken, login);
+      const followingResponse = await octokitClient(2, githubToken, login);
+      const issuesResponse = await octokitClient(4, githubToken, login);
 
       const followers = Array.isArray(followersResponse)
         ? followersResponse
@@ -54,7 +49,7 @@ export function useDashboardData(session: any) {
     };
 
     fetchData();
-  }, [token]);
+  }, [session]);
 
   return { mutualFollowers, nonFollowers, issues, loading };
 }

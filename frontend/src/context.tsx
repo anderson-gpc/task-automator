@@ -13,8 +13,8 @@ export function HomeProvider({children}: {children: React.ReactNode}) {
   const [token, setToken] = useState<boolean>(false);
 
   return (
-    <HomeContext value={{token, setToken}}>
+    <HomeContext.Provider value={{token, setToken}}>
       {children}
-    </HomeContext>
+    </HomeContext.Provider>
   )
 }

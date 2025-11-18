@@ -15,14 +15,21 @@ import {
 
 import NetworkComponent from "@/components/Network";
 import IssueCard from "@/components/IssueCard";
+import { CenterMessage } from "@/components/CenterMessage";
 
 export default function DashboardPage() {
   const data = useSession();
-  if (!data || !data.data) return;
-  const session: Session = data.data;
-  if (!session) return;
-  if (!session?.acessToken) return;
- 
+  const session: Session | null = data.data ? data.data : null;
+
+  if (!session) {
+    return (
+      <CenterMessage
+        title="Erro de sessão"
+        description="Não foi possível carregar os dados da sessão."
+      />
+    );
+  }
+
   const { mutualFollowers, nonFollowers, issues, loading } =
     useDashboardData(session);
 
