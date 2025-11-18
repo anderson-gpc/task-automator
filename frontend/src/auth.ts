@@ -1,6 +1,6 @@
 import NextAuth, { User } from "next-auth";
 import GitHub from "next-auth/providers/github";
-import { getRefinedAcessToken } from "@/actions/mysql/token-action";
+import { getRefinedAcessToken } from "@/src/actions/database/token-action";
 
 declare module "next-auth" {
   interface Session {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { descrypt } from "@/lib/brycpt/descrypt";
 import { octokitClient } from "@/lib/github/octokit";
 import { NetworkInterface } from "@/interfaces/network-interface";
-import { getRefinedAcessToken } from "../actions/mysql/token-action";
+import { getRefinedAcessToken } from "../actions/database/token-action";
 
 export function useDashboardData(session: any) {
   const [mutualFollowers, setMutualFollowers] = useState<NetworkInterface[]>(

@@ -1,7 +1,7 @@
 "use client";
 
-import { verifyUser } from "@/src/actions/mysql/user-action";
-import { verifyRefinedAcessToken } from "@/src/actions/mysql/token-action";
+import { verifyUser } from "@/src/actions/database/user-action";
+import { verifyRefinedAcessToken } from "@/src/actions/database/token-action";
 import { User } from "@/interfaces/user-interface";
 import DashboardPage from "@/views/home/DashboardPage";
 import DefaultPage from "@/views/home/DefaultPage";

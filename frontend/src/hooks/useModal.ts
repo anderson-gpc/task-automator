@@ -6,7 +6,7 @@ import { HomeContext } from "@/src/context";
 import {
   removeRefinedAcessToken,
   addRefinedAcessToken,
-} from "@/actions/mysql/token-action";
+} from "@/src/actions/database/token-action";
 import useNotification from "./useNotification";
 
 export function useModalAction(session: Session) {
