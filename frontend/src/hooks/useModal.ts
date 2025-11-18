@@ -8,6 +8,7 @@ import {
   addRefinedAcessToken,
 } from "@/actions/mysql/token-action";
 import { FormProps } from "antd";
+import useNotification from "./useNotification";
 
 export function useModalAction(session: Session) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,11 +19,13 @@ export function useModalAction(session: Session) {
   const githubId = session?.user.githubProfile.id;
   const login = session?.user.githubProfile.login;
   const { setToken } = useContext(HomeContext)!;
+    const { openNotification, contextHolder } = useNotification();
 
   const deleteToken = async () => {
     const response = await removeRefinedAcessToken(githubId);
     if (response) {
       setToken(false);
+      openNotification("Token deletado!", "Seu token foi excluído com sucesso!");
     }
   };
 
@@ -30,8 +33,10 @@ export function useModalAction(session: Session) {
     const response = await addRefinedAcessToken(githubId, login, values.token);
     if (response) {
       setToken(true);
+      openNotification("Token adicionado!", "Seu token foi adicionado com sucesso!");
     } else if (!response) {
       console.log('Token inválido');
+      openNotification("Token inválido", "Seu token é inválido!");
     }
   };
 
@@ -46,5 +51,6 @@ export function useModalAction(session: Session) {
     deleteToken,
     onFinish,
     onFinishFailed,
+    contextHolder,
   };
 }

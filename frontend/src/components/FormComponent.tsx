@@ -10,10 +10,11 @@ export default function FormComponent() {
 
   if (!session) return;
 
-  const { onFinish, onFinishFailed } = useModalAction(session);
+  const { onFinish, onFinishFailed, closeModal, contextHolder } = useModalAction(session);
 
   return (
     <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
+      {contextHolder}
       <Form.Item
         label="Token"
         name="token"
@@ -27,7 +28,7 @@ export default function FormComponent() {
         <Input placeholder="Insira o token" />
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit" type="primary" icon={<PlusOutlined />} block>
+        <Button onClick={closeModal} htmlType="submit" type="primary" icon={<PlusOutlined />} block>
           Adicionar
         </Button>
       </Form.Item>

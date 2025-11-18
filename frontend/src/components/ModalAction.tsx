@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button, Card, Modal, Space } from "antd";
 import ButtonComponent from "./Button";
@@ -10,10 +10,11 @@ import { useModalAction } from "../hooks/useModal";
 
 export default function ModalActionComponent() {
   const { data: session } = useSession();
-  
+
   if (!session) return;
 
-  const {isModalOpen, showModal, closeModal, deleteToken} = useModalAction(session);
+  const { isModalOpen, showModal, closeModal, deleteToken, contextHolder } =
+    useModalAction(session);
 
   return (
     <>
@@ -38,6 +39,7 @@ export default function ModalActionComponent() {
           header: { borderBottom: "1px solid #eee" },
         }}
       >
+        {contextHolder}
         <Space direction="vertical" style={{ width: "100%" }} size="large">
           <Card
             title="Adicionar token"
