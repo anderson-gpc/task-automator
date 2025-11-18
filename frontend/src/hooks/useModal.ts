@@ -7,7 +7,6 @@ import {
   removeRefinedAcessToken,
   addRefinedAcessToken,
 } from "@/actions/mysql/token-action";
-import { FormProps } from "antd";
 import useNotification from "./useNotification";
 
 export function useModalAction(session: Session) {
@@ -19,29 +18,32 @@ export function useModalAction(session: Session) {
   const githubId = session?.user.githubProfile.id;
   const login = session?.user.githubProfile.login;
   const { setToken } = useContext(HomeContext)!;
-    const { openNotification, contextHolder } = useNotification();
+  const { openNotification, contextHolder } = useNotification();
 
   const deleteToken = async () => {
     const response = await removeRefinedAcessToken(githubId);
     if (response) {
       setToken(false);
-      openNotification("Token deletado!", "Seu token foi excluído com sucesso!");
+      openNotification(
+        "Token deletado!",
+        "Seu token foi excluído com sucesso!"
+      );
     }
   };
-
-  const onFinish: FormProps["onFinish"] = async (values) => {
+  
+  const onFinish = async (values: any): Promise<boolean> => {
     const response = await addRefinedAcessToken(githubId, login, values.token);
     if (response) {
       setToken(true);
-      openNotification("Token adicionado!", "Seu token foi adicionado com sucesso!");
-    } else if (!response) {
-      console.log('Token inválido');
-      openNotification("Token inválido", "Seu token é inválido!");
+      openNotification(
+        "Token adicionado!",
+        "Seu token foi adicionado com sucesso!"
+      );
+      closeModal();
+      return true;
     }
-  };
-
-  const onFinishFailed: FormProps["onFinishFailed"] = (values) => {
-    console.log(values);
+    openNotification("Token inválido", "Seu token é inválido!");
+    return false;
   };
 
   return {
@@ -50,7 +52,6 @@ export function useModalAction(session: Session) {
     closeModal,
     deleteToken,
     onFinish,
-    onFinishFailed,
     contextHolder,
   };
 }

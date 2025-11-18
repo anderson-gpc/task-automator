@@ -13,7 +13,7 @@ export default function ModalActionComponent() {
 
   if (!session) return;
 
-  const { isModalOpen, showModal, closeModal, deleteToken, contextHolder } =
+  const { isModalOpen, contextHolder, showModal, closeModal, deleteToken, onFinish } =
     useModalAction(session);
 
   return (
@@ -48,7 +48,7 @@ export default function ModalActionComponent() {
               body: { display: "flex", flexDirection: "column", gap: "12px" },
             }}
           >
-            <FormComponent />
+            <FormComponent onFinish={onFinish} contextHolder={contextHolder}/>
           </Card>
 
           <Card
