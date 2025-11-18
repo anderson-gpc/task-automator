@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma/prisma";
 import { PrismaError } from "@/lib/prisma/PrismaError";
 import encrypt from "@/lib/brycpt/encrypt";
+import { revalidatePath } from "next/cache";
 
 export async function verifyRefinedAcessToken(
   githubId: number
@@ -26,6 +27,7 @@ export async function addRefinedAcessToken(
       data: { refinedAcessToken: tokenEncrypted },
       where: { githubId: githubId },
     });
+    revalidatePath("/dashboard");
     return true;
   } catch (e) {
     throw PrismaError.handle(e);
