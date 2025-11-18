@@ -16,6 +16,7 @@ export function useModalAction(session: Session) {
   const closeModal = () => setIsModalOpen(false);
 
   const githubId = session?.user.githubProfile.id;
+  const login = session?.user.githubProfile.login;
   const { setToken } = useContext(HomeContext)!;
 
   const deleteToken = async () => {
@@ -26,9 +27,11 @@ export function useModalAction(session: Session) {
   };
 
   const onFinish: FormProps["onFinish"] = async (values) => {
-    const response = await addRefinedAcessToken(githubId, values.token);
+    const response = await addRefinedAcessToken(githubId, login, values.token);
     if (response) {
       setToken(true);
+    } else if (!response) {
+      console.log('Token inválido');
     }
   };
 

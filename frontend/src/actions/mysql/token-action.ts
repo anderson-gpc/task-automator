@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma/prisma";
 import { PrismaError } from "@/lib/prisma/PrismaError";
 import encrypt from "@/lib/brycpt/encrypt";
 import { revalidatePath } from "next/cache";
+import { octokitClient } from "@/src/lib/github/octokit";
 
 export async function verifyRefinedAcessToken(
   githubId: number
@@ -19,15 +20,24 @@ export async function verifyRefinedAcessToken(
 
 export async function addRefinedAcessToken(
   githubId: number,
+  login: string,
   token: string
 ): Promise<boolean> {
   try {
+    
+    const verify = await octokitClient(1, token, login);
+    if (!verify) {
+      return false;
+    }
+    
     const tokenEncrypted = await encrypt(token);
     await prisma.user.update({
       data: { refinedAcessToken: tokenEncrypted },
       where: { githubId: githubId },
     });
+
     revalidatePath("/dashboard");
+
     return true;
   } catch (e) {
     throw PrismaError.handle(e);
