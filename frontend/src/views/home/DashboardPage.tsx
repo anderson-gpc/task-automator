@@ -17,6 +17,8 @@ import NetworkComponent from "@/components/Network";
 import IssueCard from "@/components/IssueCard";
 import { CenterMessage } from "@/components/CenterMessage";
 
+import { motion } from "framer-motion";
+
 export default function DashboardPage() {
   const data = useSession();
   const session: Session | null = data.data ? data.data : null;
@@ -51,48 +53,54 @@ export default function DashboardPage() {
     );
 
   return (
-    <Flex className={styles.dashboard}>
-      <Splitter className={styles.splitter}>
-        <Splitter.Panel collapsible={{ start: true, end: true }}>
-          <Card title="Seguidores mútuos">
-            {mutualFollowers.map((element: any) => (
-              <NetworkComponent
-                key={element.id}
-                data={element}
-                onRemove={() => removeFollowerAction(session, element.login)}
-                onView={() => openInNewTab(element.html_url)}
-              />
-            ))}
-          </Card>
-        </Splitter.Panel>
-
-        <Splitter.Panel collapsible={{ start: true, end: true }}>
-          <Card title="Não seguidores">
-            {nonFollowers.map((element: any) => (
-              <NetworkComponent
-                key={element.id}
-                data={element}
-                onRemove={() => removeFollowerAction(session, element.login)}
-                onView={() => openInNewTab(element.html_url)}
-              />
-            ))}
-          </Card>
-        </Splitter.Panel>
-
-        <Splitter.Panel collapsible={{ start: true, end: true }}>
-          <Card title="Issues recebidas">
-            <Flex vertical>
-              {issues.map((issue: any) => (
-                <IssueCard
-                  key={issue.id}
-                  issue={issue}
-                  onView={(issue) => openInNewTab(issue.html_url)}
+    <motion.div
+      initial={{ y: 0, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    >
+      <Flex className={styles.dashboard}>
+        <Splitter className={styles.splitter}>
+          <Splitter.Panel collapsible={{ start: true, end: true }}>
+            <Card title="Seguidores mútuos">
+              {mutualFollowers.map((element: any) => (
+                <NetworkComponent
+                  key={element.id}
+                  data={element}
+                  onRemove={() => removeFollowerAction(session, element.login)}
+                  onView={() => openInNewTab(element.html_url)}
                 />
               ))}
-            </Flex>
-          </Card>
-        </Splitter.Panel>
-      </Splitter>
-    </Flex>
+            </Card>
+          </Splitter.Panel>
+
+          <Splitter.Panel collapsible={{ start: true, end: true }}>
+            <Card title="Não seguidores">
+              {nonFollowers.map((element: any) => (
+                <NetworkComponent
+                  key={element.id}
+                  data={element}
+                  onRemove={() => removeFollowerAction(session, element.login)}
+                  onView={() => openInNewTab(element.html_url)}
+                />
+              ))}
+            </Card>
+          </Splitter.Panel>
+
+          <Splitter.Panel collapsible={{ start: true, end: true }}>
+            <Card title="Issues recebidas">
+              <Flex vertical>
+                {issues.map((issue: any) => (
+                  <IssueCard
+                    key={issue.id}
+                    issue={issue}
+                    onView={(issue) => openInNewTab(issue.html_url)}
+                  />
+                ))}
+              </Flex>
+            </Card>
+          </Splitter.Panel>
+        </Splitter>
+      </Flex>
+    </motion.div>
   );
 }
