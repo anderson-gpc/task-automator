@@ -3,8 +3,8 @@
 import { verifyUser } from "@/src/actions/mysql/user-action";
 import { verifyRefinedAcessToken } from "@/src/actions/mysql/token-action";
 import { User } from "@/interfaces/user-interface";
-import { DashboardPage } from "@/pages/home/DashboardPage";
-import DefaultPage from "@/pages/home/DefaultPage";
+import DashboardPage from "@/views/home/DashboardPage";
+import DefaultPage from "@/views/home/DefaultPage";
 import { useSession } from "next-auth/react";
 import { use, useEffect, useState } from "react";
 import { HomeContext } from "@/src/context";

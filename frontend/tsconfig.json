@@ -33,7 +33,7 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/interfaces/*": ["./src/interfaces/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/pages/*": ["./src/pages/*"],
+      "@/views/*": ["./src/views/*"],
     }
   },
   "include": [

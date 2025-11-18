@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { Session } from "@auth/core/types";
 import { Flex, Card, Splitter } from "antd";
 import useDashboardStyles from "@/assets/css/__dashboard.style";
 import { ThreeDot } from "react-loading-indicators";
@@ -15,16 +16,17 @@ import {
 import NetworkComponent from "@/components/Network";
 import IssueCard from "@/components/IssueCard";
 
-export function DashboardPage() {
-  const { data: session } = useSession();
-  const { styles } = useDashboardStyles();
-
+export default function DashboardPage() {
+  const data = useSession();
+  if (!data || !data.data) return;
+  const session: Session = data.data;
   if (!session) return;
-  if (!session?.acessToken) return null;
-
+  if (!session?.acessToken) return;
+ 
   const { mutualFollowers, nonFollowers, issues, loading } =
     useDashboardData(session);
 
+  const { styles } = useDashboardStyles();
   if (loading)
     return (
       <Flex
