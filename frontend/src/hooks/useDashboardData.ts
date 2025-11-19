@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { descrypt } from "@/lib/brycpt/descrypt";
 import { octokitClient } from "@/lib/github/octokit";
 import { NetworkInterface } from "@/interfaces/network-interface";
 import { getRefinedAcessToken } from "../actions/database/token-action";
+import { HomeContext } from "@/src/context";
 
 export function useDashboardData(session: any) {
   const [mutualFollowers, setMutualFollowers] = useState<NetworkInterface[]>(
@@ -13,8 +14,22 @@ export function useDashboardData(session: any) {
   const [nonFollowers, setNonFollowers] = useState<NetworkInterface[]>([]);
   const [issues, setIssues] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const hasFetchedRef = useRef(false);
+  const sessionUserIdRef = useRef<string | null>(null);
+  const tokenRef = useRef<boolean | null>(null);
+  const { token } = useContext(HomeContext)!;
 
   useEffect(() => {
+    const currentUserId = session?.user?.githubProfile?.id;
+    const tokenChanged = tokenRef.current !== null && tokenRef.current !== token;
+    const shouldFetch = !hasFetchedRef.current || 
+                       sessionUserIdRef.current !== currentUserId || 
+                       tokenChanged;
+
+    if (!shouldFetch || !session?.user?.githubProfile) {
+      return;
+    }
+
     const fetchData = async () => {
       setLoading(true);
       let acess: string | null;
@@ -25,6 +40,7 @@ export function useDashboardData(session: any) {
 
       if (!acess || typeof acess !== "string") {
         console.warn("Sem token disponível pra decriptar");
+        setLoading(false);
         return;
       }
 
@@ -59,10 +75,13 @@ export function useDashboardData(session: any) {
       setNonFollowers(non);
       setIssues(issues);
       setLoading(false);
+      hasFetchedRef.current = true;
+      sessionUserIdRef.current = currentUserId;
+      tokenRef.current = token;
     };
 
     fetchData();
-  }, [session]);
+  }, [session?.user?.githubProfile?.id, session?.acessToken, token]);
 
   return { mutualFollowers, nonFollowers, issues, loading };
 }

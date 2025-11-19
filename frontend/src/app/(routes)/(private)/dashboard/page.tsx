@@ -6,28 +6,39 @@ import { User } from "@/interfaces/user-interface";
 import DashboardPage from "@/views/home/DashboardPage";
 import DefaultPage from "@/views/home/DefaultPage";
 import { useSession } from "next-auth/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { HomeContext } from "@/src/context";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const [actionsGit, setActionGit] = useState<boolean>(false);
   const {token} = useContext(HomeContext)!;
+  const checkedUserIdRef = useRef<number | null>(null);
+  const lastTokenRef = useRef<boolean | null>(null);
 
   useEffect(() => {
     const checkUser = async () => {
       if (status === "authenticated" && session?.user?.githubProfile) {
         const githubProfile = session.user.githubProfile;
+        const userId = githubProfile.id;
+        const tokenChanged = lastTokenRef.current !== null && lastTokenRef.current !== token;
+        
+        if (checkedUserIdRef.current === userId && !tokenChanged) {
+          return;
+        }
+
         const user: User = {
           login: githubProfile.login,
-          githubId: githubProfile.id,
+          githubId: userId,
         };
 
         try {
           await verifyUser(user);
-          const token = await verifyRefinedAcessToken(user.githubId);
-          if (token) setActionGit(true);
+          const hasToken = await verifyRefinedAcessToken(user.githubId);
+          if (hasToken) setActionGit(true);
           else setActionGit(false);
+          checkedUserIdRef.current = userId;
+          lastTokenRef.current = token;
         } catch (error) {
           throw new Error(`[ERROR]: ${error}`);
         }
@@ -35,7 +46,7 @@ export default function Dashboard() {
     };
 
     checkUser();
-  }, [status, session, token]);
+  }, [status, session?.user?.githubProfile?.id, token]);
 
   if (actionsGit === true) {
     return <DashboardPage />;

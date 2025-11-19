@@ -2,6 +2,7 @@
 
 import { Session } from "@auth/core/types";
 import { useContext, useState } from "react";
+import { useSession } from "next-auth/react";
 import { HomeContext } from "@/src/context";
 import {
   removeRefinedAcessToken,
@@ -10,7 +11,9 @@ import {
 import useNotification from "./useNotification";
 
 export function useModalAction(session: Session) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [disabled, setDisabled] = useState<boolean>(false);
+  const { update } = useSession();
 
   const showModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -23,11 +26,13 @@ export function useModalAction(session: Session) {
   const deleteToken = async () => {
     const response = await removeRefinedAcessToken(githubId);
     if (response) {
+      setDisabled(true);
       setToken(false);
       openNotification(
         "Token deletado!",
         "Seu token foi excluído com sucesso!"
       );
+      await update();
     }
   };
   
@@ -40,6 +45,7 @@ export function useModalAction(session: Session) {
         "Seu token foi adicionado com sucesso!"
       );
       closeModal();
+      await update();
       return true;
     }
     openNotification("Token inválido", "Seu token é inválido!");
@@ -48,10 +54,11 @@ export function useModalAction(session: Session) {
 
   return {
     isModalOpen,
+    contextHolder,
+    disabled,
     showModal,
     closeModal,
     deleteToken,
     onFinish,
-    contextHolder,
   };
 }

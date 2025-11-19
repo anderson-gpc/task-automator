@@ -13,7 +13,7 @@ export default function ModalActionComponent() {
 
   if (!session) return;
 
-  const { isModalOpen, contextHolder, showModal, closeModal, deleteToken, onFinish } =
+  const { isModalOpen, contextHolder, disabled, showModal, closeModal, deleteToken, onFinish } =
     useModalAction(session);
 
   return (
@@ -30,7 +30,7 @@ export default function ModalActionComponent() {
         open={isModalOpen}
         onCancel={closeModal}
         footer={[
-          <Button key="ok" type="primary" onClick={closeModal}>
+          <Button disabled={disabled} key="ok" type="primary" onClick={closeModal}>
             Ok
           </Button>,
         ]}
