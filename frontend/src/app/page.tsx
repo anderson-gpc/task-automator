@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import ThereeDotComponent from "@/components/ThreeDot";
+import ThereeDotComponent from "@/components/atoms/ThreeDot";
 
 export default function Home() {
   const router = useRouter();

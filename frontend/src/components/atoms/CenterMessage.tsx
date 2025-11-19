@@ -18,3 +18,4 @@ export function CenterMessage({ title, description }: { title: string; descripti
     </Flex>
   );
 }
+

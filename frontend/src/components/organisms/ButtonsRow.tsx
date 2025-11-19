@@ -1,8 +1,7 @@
-"use client"
-
+"use client";
 
 import { motion } from "framer-motion";
-import ButtonComponent, { ButtonStyleType } from "./Button";
+import ButtonComponent, { ButtonStyleType } from "../atoms/Button";
 import {
   GithubOutlined,
   LogoutOutlined,
@@ -10,7 +9,6 @@ import {
 import { signOut } from "next-auth/react";
 import ModalActionComponent from "./ModalAction";
 import { useSession } from "next-auth/react";
-
 
 export default function ButtonsRowComponent() {
   const { data: session } = useSession();
@@ -45,3 +43,4 @@ export default function ButtonsRowComponent() {
     </motion.div>
   );
 }
+

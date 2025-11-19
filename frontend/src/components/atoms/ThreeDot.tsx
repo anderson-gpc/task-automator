@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 import { ThreeDot } from "react-loading-indicators";
 
@@ -13,3 +12,4 @@ export default function ThereeDotComponent({ text }: { text: string }) {
     />
   );
 }
+

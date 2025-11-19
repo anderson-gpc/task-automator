@@ -13,9 +13,9 @@ import {
   openInNewTab,
 } from "@/actions/github/github-action";
 
-import NetworkComponent from "@/components/Network";
-import IssueCard from "@/components/IssueCard";
-import { CenterMessage } from "@/components/CenterMessage";
+import NetworkComponent from "@/components/molecules/Network";
+import IssueCard from "@/components/molecules/IssueCard";
+import { CenterMessage } from "@/components/atoms/CenterMessage";
 
 import { motion } from "framer-motion";
 

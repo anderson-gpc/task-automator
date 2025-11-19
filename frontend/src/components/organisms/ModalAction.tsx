@@ -1,12 +1,12 @@
 "use client";
 
 import { Button, Card, Modal, Space } from "antd";
-import ButtonComponent from "./Button";
+import ButtonComponent from "../atoms/Button";
 import { DeleteOutlined, SettingOutlined } from "@ant-design/icons";
-import { ButtonStyleType } from "./Button";
-import FormComponent from "./FormComponent";
+import { ButtonStyleType } from "../atoms/Button";
+import FormComponent from "../molecules/FormComponent";
 import { useSession } from "next-auth/react";
-import { useModalAction } from "../hooks/useModal";
+import { useModalAction } from "../../hooks/useModal";
 
 export default function ModalActionComponent() {
   const { data: session } = useSession();
@@ -76,3 +76,4 @@ export default function ModalActionComponent() {
     </>
   );
 }
+

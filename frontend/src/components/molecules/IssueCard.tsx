@@ -57,3 +57,4 @@ export default function IssueCard({ issue, onView }: IssueCardProps) {
     </Card>
   );
 }
+

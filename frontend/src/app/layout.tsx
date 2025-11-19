@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/assets/css/globals.css";
-import Provider from "@/components/SessionProvider";
+import Provider from "@/components/providers/SessionProvider";
 import { Poppins } from "next/font/google";
 
 export const metadata: Metadata = {

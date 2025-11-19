@@ -1,6 +1,6 @@
 "use client"
 
-import { AppbarComponent } from "@/components/Appbar";
+import { AppbarComponent } from "@/components/organisms/Appbar";
 import { HomeProvider } from "@/src/context";
 
 export default function DashboardLayout({

@@ -1,8 +1,8 @@
 "use client";
 
 import { Flex, Form } from "antd";
-import DividerComponent from "@/components/Divider";
-import ButtonComponent, { ButtonStyleType } from "@/components/Button";
+import DividerComponent from "@/components/atoms/Divider";
+import ButtonComponent, { ButtonStyleType } from "@/components/atoms/Button";
 import useLoginStyles from "@/assets/css/__login.styles";
 import { GithubOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";

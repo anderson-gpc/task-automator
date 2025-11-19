@@ -25,3 +25,4 @@ export default function DividerComponent({ text }: { text: string }) {
     </ConfigProvider>
   );
 }
+
