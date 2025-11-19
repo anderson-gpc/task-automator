@@ -32,7 +32,9 @@ export function useModalAction(session: Session) {
         "Token deletado!",
         "Seu token foi excluído com sucesso!"
       );
-      await update();
+      setTimeout(async () => {
+        await update();
+      }, 2000);
     }
   };
   
@@ -45,7 +47,9 @@ export function useModalAction(session: Session) {
         "Seu token foi adicionado com sucesso!"
       );
       closeModal();
-      await update();
+      setTimeout(async () => {
+        await update();
+      }, 2000);
       return true;
     }
     openNotification("Token inválido", "Seu token é inválido!");
